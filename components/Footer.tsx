@@ -2,8 +2,8 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/[0.06]">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-5 px-4 py-10 text-sm text-white/60 sm:flex-row sm:px-6">
-        <p className="text-lg font-bold text-brand-gradient">AIHub</p>
-        <p className="text-white/50">© 2025 AIHub. Made in Uzbekistan 🇺🇿</p>
+        <p className="text-lg font-bold text-brand-gradient">HUBFIELD</p>
+        <p className="text-white/50">© 2026 HUBFIELD. Made in Uzbekistan 🇺🇿</p>
         <div className="flex items-center gap-5">
           <a
             href="#"

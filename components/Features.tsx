@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import GradientBorder from "@/components/GradientBorder";
+import Marquee from "@/components/Marquee";
 
 const features = [
   {
@@ -35,7 +37,16 @@ const features = [
   }
 ];
 
-const logos = ["OpenAI", "Anthropic", "Google Gemini", "Meta Llama", "Stability AI", "Midjourney"];
+const logos = [
+  "OpenAI",
+  "Anthropic",
+  "Google Gemini",
+  "Meta Llama",
+  "Stability AI",
+  "Midjourney",
+  "Mistral",
+  "Cohere"
+];
 
 export default function Features() {
   return (
@@ -54,30 +65,41 @@ export default function Features() {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((feature, index) => (
-          <motion.article
-            key={feature.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: index * 0.08 }}
-            whileHover={{
-              y: -4,
-              boxShadow:
-                "10px 10px 30px rgba(0,0,0,0.7), -8px -8px 22px rgba(255,255,255,0.04), 0 0 30px rgba(6,182,212,0.2)"
-            }}
-            className="neo-glass group cursor-default rounded-2xl p-6 transition-all duration-300"
-          >
-            <div
-              className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl text-2xl shadow-neo-inner"
-              style={{
-                background: "linear-gradient(145deg, rgba(18,18,32,0.9), rgba(10,11,22,0.7))"
+          <GradientBorder key={feature.title} borderRadius="1rem">
+            <motion.article
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              whileHover={{
+                y: -4,
+                boxShadow:
+                  "10px 10px 30px rgba(0,0,0,0.7), -8px -8px 22px rgba(255,255,255,0.04), 0 0 30px rgba(6,182,212,0.2)"
               }}
+              className="neo-glass group cursor-default rounded-2xl p-6 transition-all duration-300"
             >
-              {feature.icon}
-            </div>
-            <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/65">{feature.description}</p>
-          </motion.article>
+              <motion.div
+                whileHover={{
+                  scale: 1.15,
+                  rotate: [0, -8, 8, 0],
+                  boxShadow:
+                    "inset 4px 4px 10px rgba(0,0,0,0.6), inset -3px -3px 8px rgba(255,255,255,0.03), 0 0 20px rgba(124,58,237,0.25)"
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl text-2xl shadow-neo-inner"
+                style={{
+                  background:
+                    "linear-gradient(145deg, rgba(18,18,32,0.9), rgba(10,11,22,0.7))"
+                }}
+              >
+                {feature.icon}
+              </motion.div>
+              <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/65">
+                {feature.description}
+              </p>
+            </motion.article>
+          </GradientBorder>
         ))}
       </div>
 
@@ -86,24 +108,12 @@ export default function Features() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="neo-glass-subtle mt-16 rounded-2xl px-5 py-7 sm:px-8"
+        className="neo-glass-subtle mt-16 rounded-2xl px-2 py-7 sm:px-4"
       >
         <p className="mb-5 text-center text-xs uppercase tracking-[0.22em] text-white/40">
           Supported models
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          {logos.map((logo) => (
-            <span
-              key={logo}
-              className="rounded-lg px-3 py-1.5 text-sm text-white/55 shadow-neo-inner transition hover:text-white/80"
-              style={{
-                background: "linear-gradient(145deg, rgba(12,12,22,0.6), rgba(7,8,16,0.4))"
-              }}
-            >
-              {logo}
-            </span>
-          ))}
-        </div>
+        <Marquee items={logos} speed={25} />
       </motion.div>
     </section>
   );

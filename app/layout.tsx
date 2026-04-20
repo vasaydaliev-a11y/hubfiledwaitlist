@@ -7,9 +7,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AIHub | Future of AI in One Platform",
+  title: "HUBFIELD | Future of AI in One Platform",
   description:
-    "AIHub is an AI aggregator and freelance marketplace platform from Uzbekistan. Join early access.",
+    "HUBFIELD is an AI aggregator and freelance marketplace platform from Uzbekistan. Join early access.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

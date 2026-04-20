@@ -10,40 +10,69 @@ const particles = Array.from({ length: 32 }, (_, index) => ({
   duration: 7 + (index % 8) * 1.6
 }));
 
-const orbs = [
-  { top: "15%", left: "20%", size: 280, color: "rgba(124, 58, 237, 0.18)", delay: 0 },
-  { top: "60%", left: "70%", size: 340, color: "rgba(6, 182, 212, 0.12)", delay: 2 },
-  { top: "80%", left: "30%", size: 200, color: "rgba(124, 58, 237, 0.1)", delay: 4 }
+const meshOrbs = [
+  {
+    top: "10%",
+    left: "15%",
+    size: 400,
+    colors: ["rgba(124,58,237,0.22)", "rgba(88,28,235,0.08)"],
+    blur: 80,
+    duration: 18
+  },
+  {
+    top: "55%",
+    left: "65%",
+    size: 450,
+    colors: ["rgba(6,182,212,0.16)", "rgba(8,145,178,0.06)"],
+    blur: 90,
+    duration: 22
+  },
+  {
+    top: "75%",
+    left: "25%",
+    size: 300,
+    colors: ["rgba(124,58,237,0.12)", "rgba(168,85,247,0.05)"],
+    blur: 70,
+    duration: 15
+  },
+  {
+    top: "20%",
+    left: "80%",
+    size: 250,
+    colors: ["rgba(6,182,212,0.1)", "rgba(34,211,238,0.04)"],
+    blur: 65,
+    duration: 20
+  }
 ];
 
 export default function ParticleBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,_rgba(124,58,237,0.2),_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,_rgba(6,182,212,0.13),_transparent_45%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,_rgba(124,58,237,0.18),_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,_rgba(6,182,212,0.11),_transparent_45%)]" />
 
-      {orbs.map((orb, index) => (
+      {meshOrbs.map((orb, index) => (
         <motion.div
-          key={index}
+          key={`orb-${index}`}
           className="absolute rounded-full"
           style={{
             top: orb.top,
             left: orb.left,
             width: orb.size,
             height: orb.size,
-            background: `radial-gradient(circle, ${orb.color}, transparent 70%)`,
-            filter: "blur(60px)"
+            background: `radial-gradient(circle at 40% 40%, ${orb.colors[0]}, ${orb.colors[1]}, transparent 70%)`,
+            filter: `blur(${orb.blur}px)`
           }}
           animate={{
-            x: [0, 30, -20, 0],
-            y: [0, -25, 15, 0],
-            scale: [1, 1.1, 0.95, 1]
+            x: [0, 40, -30, 15, 0],
+            y: [0, -35, 20, -10, 0],
+            scale: [1, 1.12, 0.92, 1.05, 1],
+            rotate: [0, 5, -3, 2, 0]
           }}
           transition={{
-            duration: 12 + index * 2,
+            duration: orb.duration,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: orb.delay
+            ease: "easeInOut"
           }}
         />
       ))}
@@ -57,7 +86,8 @@ export default function ParticleBackground() {
             height: particle.size,
             top: `${particle.top}%`,
             left: `${particle.left}%`,
-            background: `radial-gradient(circle, rgba(255,255,255,0.6), rgba(255,255,255,0.1))`,
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.6), rgba(255,255,255,0.1))",
             boxShadow: "0 0 6px rgba(255,255,255,0.15)"
           }}
           animate={{

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import ParticleBackground from "@/components/ParticleBackground";
 import WaitlistForm from "@/components/WaitlistForm";
 
@@ -16,6 +17,41 @@ const heroItems = {
     }
   })
 };
+
+const headlineWords = ["The", "Future", "of", "AI,"];
+
+function TypewriterHeadline() {
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (visibleCount < headlineWords.length) {
+        setVisibleCount((prev) => prev + 1);
+      }
+    }, 180);
+    return () => clearTimeout(timeout);
+  }, [visibleCount]);
+
+  return (
+    <span className="text-brand-gradient">
+      {headlineWords.map((word, index) => (
+        <motion.span
+          key={word}
+          initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+          animate={
+            index < visibleCount
+              ? { opacity: 1, y: 0, filter: "blur(0px)" }
+              : {}
+          }
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mr-[0.28em] inline-block"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export default function Hero() {
   return (
@@ -38,15 +74,21 @@ export default function Hero() {
         </motion.div>
 
         <motion.h1
-          custom={0.2}
+          custom={0.15}
           initial="hidden"
           animate="visible"
           variants={heroItems}
           className="max-w-4xl text-balance text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
         >
-          <span className="text-brand-gradient">The Future of AI,</span>
+          <TypewriterHeadline />
           <br />
-          In One Platform
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.6, ease: "easeOut" }}
+          >
+            In One Platform
+          </motion.span>
         </motion.h1>
 
         <motion.p
