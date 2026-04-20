@@ -31,7 +31,7 @@ export default function MobileStickyCTA() {
       <a
         href="#waitlist"
         tabIndex={visible ? 0 : -1}
-        className="block w-full rounded-xl py-3.5 text-center text-sm font-semibold text-white"
+        className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-center text-sm font-semibold text-white"
         style={{
           background: "linear-gradient(135deg, #8b5cf6, #6d28d9, #06B6D4)",
           boxShadow:
@@ -39,6 +39,9 @@ export default function MobileStickyCTA() {
         }}
       >
         Join Waitlist
+        <span className="rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-medium tabular-nums">
+          127 spots left
+        </span>
       </a>
     </motion.div>
   );

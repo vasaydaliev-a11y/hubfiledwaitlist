@@ -185,7 +185,7 @@ function PricingCard({
 
       <div className="relative z-10 p-6">
         {plan.badge && (
-          <div className="mb-4 inline-flex self-start rounded-full bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-400">
+          <div className="text-shimmer mb-4 inline-flex self-start rounded-full bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-400">
             {plan.badge}
           </div>
         )}
@@ -319,7 +319,7 @@ export default function Pricing() {
   const [annual, setAnnual] = useState(false);
 
   return (
-    <section id="pricing" className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
+    <section id="pricing" aria-labelledby="pricing-heading" className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -330,7 +330,7 @@ export default function Pricing() {
         <p className="text-[13px] uppercase tracking-[0.25em] text-white/30">
           Pricing
         </p>
-        <h2 className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
+        <h2 id="pricing-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
           Simple, transparent pricing
         </h2>
         <p className="mx-auto mt-3 max-w-md text-base text-white/40">

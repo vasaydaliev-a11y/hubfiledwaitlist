@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 const badges = [
   {
     label: "SOC 2 Compliant",
+    detail: "Enterprise-grade security audit",
     color: "rgba(139,92,246,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -15,6 +16,7 @@ const badges = [
   },
   {
     label: "GDPR Ready",
+    detail: "EU data protection compliant",
     color: "rgba(6,182,212,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -25,6 +27,7 @@ const badges = [
   },
   {
     label: "256-bit SSL",
+    detail: "End-to-end encryption",
     color: "rgba(52,211,153,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -35,6 +38,7 @@ const badges = [
   },
   {
     label: "IT Park Resident",
+    detail: "Backed by Uzbekistan IT Park",
     color: "rgba(236,72,153,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -47,6 +51,7 @@ const badges = [
   },
   {
     label: "Tashkent DC",
+    detail: "Local data residency",
     color: "rgba(245,158,11,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -80,17 +85,26 @@ export default function TrustBadges() {
               boxShadow: `0 8px 24px ${badge.color.replace("0.35", "0.12")}, 0 0 0 1px ${badge.color.replace("0.35", "0.15")}`,
               transition: { duration: 0.25 },
             }}
-            className="group flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/50 transition-colors hover:text-white/70"
+            className="group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/50 transition-colors hover:text-white/70"
             style={{
               border: "1px solid rgba(139,92,246,0.06)",
               background:
                 "linear-gradient(160deg, rgba(10,1,24,0.6), rgba(3,0,20,0.4))",
             }}
           >
-            <span className="text-white/30 transition-colors duration-300 group-hover:text-white/60">
+            <span className="text-white/30 transition-all duration-300 group-hover:scale-110 group-hover:text-white/60">
               {badge.icon}
             </span>
             <span>{badge.label}</span>
+            <span
+              className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-1 text-[10px] text-white/50 opacity-0 transition-all duration-200 group-hover:opacity-100"
+              style={{
+                background: "rgba(10,1,24,0.9)",
+                border: `1px solid ${badge.color.replace("0.35", "0.15")}`,
+              }}
+            >
+              {badge.detail}
+            </span>
           </motion.div>
         ))}
       </div>

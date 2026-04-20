@@ -98,9 +98,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center gap-2 border-t border-white/[0.04] pt-6 text-xs text-white/20 sm:flex-row sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} HUBFIELD. Made in Uzbekistan</p>
-          <p>IT Park Resident &middot; Tashkent Data Center</p>
+        <div className="mt-8 flex flex-col items-center gap-3 border-t border-white/[0.04] pt-6 text-xs text-white/20 sm:flex-row sm:justify-between">
+          <p className="flex items-center gap-1">
+            &copy; {new Date().getFullYear()} HUBFIELD. Made with
+            <span className="inline-block animate-pulse text-rose-400/60" aria-label="love">&#9829;</span>
+            in Uzbekistan
+          </p>
+          <div className="flex items-center gap-3">
+            <a href="/privacy" className="transition-colors hover:text-white/40">Privacy</a>
+            <span className="h-3 w-px bg-white/10" />
+            <a href="/terms" className="transition-colors hover:text-white/40">Terms</a>
+            <span className="h-3 w-px bg-white/10" />
+            <span>IT Park &middot; Tashkent DC</span>
+          </div>
         </div>
       </div>
     </footer>
