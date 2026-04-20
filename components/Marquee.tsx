@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 type MarqueeProps = {
-  items: string[];
+  children: ReactNode[];
   speed?: number;
 };
 
-export default function Marquee({ items, speed = 30 }: MarqueeProps) {
-  const duplicated = [...items, ...items, ...items];
+export default function Marquee({ children, speed = 30 }: MarqueeProps) {
+  const duplicated = [...children, ...children, ...children];
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -21,16 +21,16 @@ export default function Marquee({ items, speed = 30 }: MarqueeProps) {
   if (reducedMotion) {
     return (
       <div
-        className="flex flex-wrap items-center justify-center gap-3"
+        className="flex flex-wrap items-center justify-center gap-4"
         aria-hidden="true"
       >
-        {items.map((item) => (
-          <span
-            key={item}
-            className="neo-inset whitespace-nowrap rounded-lg px-5 py-2 text-sm text-white/55"
+        {children.map((child, i) => (
+          <div
+            key={i}
+            className="neo-inset flex items-center justify-center rounded-lg px-5 py-2.5"
           >
-            {item}
-          </span>
+            {child}
+          </div>
         ))}
       </div>
     );
@@ -52,14 +52,14 @@ export default function Marquee({ items, speed = 30 }: MarqueeProps) {
           },
         }}
       >
-        {duplicated.map((item, index) => (
-          <span
-            key={`${item}-${index}`}
-            className="neo-inset whitespace-nowrap rounded-lg px-5 py-2 text-sm text-white/55 transition-all duration-300 hover:text-white/80 hover:shadow-[0_0_16px_rgba(139,92,246,0.1),inset_0_1px_0_rgba(139,92,246,0.06)]"
+        {duplicated.map((child, index) => (
+          <div
+            key={index}
+            className="neo-inset flex items-center justify-center whitespace-nowrap rounded-lg px-5 py-2.5 transition-all duration-300 hover:shadow-[0_0_16px_rgba(139,92,246,0.1),inset_0_1px_0_rgba(139,92,246,0.06)]"
             style={{ borderColor: "transparent" }}
           >
-            {item}
-          </span>
+            {child}
+          </div>
         ))}
       </motion.div>
     </div>

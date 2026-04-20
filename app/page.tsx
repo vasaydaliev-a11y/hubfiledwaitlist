@@ -12,7 +12,6 @@ import { getFeaturedProducts } from "@/lib/shopify";
 
 const DemoPreview = dynamic(() => import("@/components/DemoPreview"));
 const Features = dynamic(() => import("@/components/Features"));
-const TrustBadges = dynamic(() => import("@/components/TrustBadges"));
 const Comparison = dynamic(() => import("@/components/Comparison"));
 const HowItWorks = dynamic(() => import("@/components/HowItWorks"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
@@ -51,7 +50,6 @@ export default async function Home() {
       <CosmicDivider />
       <DemoPreview />
       <Features />
-      <TrustBadges />
       <CosmicDivider />
       <Comparison />
       <HowItWorks />

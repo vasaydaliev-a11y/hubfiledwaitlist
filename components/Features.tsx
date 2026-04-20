@@ -87,15 +87,98 @@ const features = [
   },
 ];
 
-const logos = [
-  "OpenAI",
-  "Anthropic",
-  "Google Gemini",
-  "Meta Llama",
-  "Stability AI",
-  "Midjourney",
-  "Mistral",
-  "Cohere",
+function OpenAILogo() {
+  return (
+    <svg width="100" height="20" viewBox="0 0 120 24" fill="none" aria-label="OpenAI">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.1 0 2.1.3 3 .8L7.8 15c-.5-.9-.8-1.9-.8-3 0-3.3 2.7-5 5-5zm0 14c-1.1 0-2.1-.3-3-.8L16.2 9c.5.9.8 1.9.8 3 0 2.8-2.2 5-5 5z" fill="rgba(255,255,255,0.6)"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">OpenAI</text>
+    </svg>
+  );
+}
+
+function AnthropicLogo() {
+  return (
+    <svg width="110" height="20" viewBox="0 0 130 24" fill="none" aria-label="Anthropic">
+      <path d="M13.5 4L7 20h3l1.5-3.8h6L19 20h3L15.5 4h-2zm-1 9.8L14.5 8l2 5.8h-4z" fill="rgba(255,255,255,0.6)"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Anthropic</text>
+    </svg>
+  );
+}
+
+function GeminiLogo() {
+  return (
+    <svg width="98" height="20" viewBox="0 0 115 24" fill="none" aria-label="Google Gemini">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5"/>
+      <path d="M12 6v12M6 12h12" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Gemini</text>
+    </svg>
+  );
+}
+
+function MetaLogo() {
+  return (
+    <svg width="90" height="20" viewBox="0 0 100 24" fill="none" aria-label="Meta Llama">
+      <path d="M4 19c2-6 4-12 8-12s6 6 8 12" stroke="rgba(255,255,255,0.5)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+      <path d="M10 19c2-6 4-12 8-12s6 6 8 12" stroke="rgba(255,255,255,0.4)" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+      <text x="32" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Meta</text>
+    </svg>
+  );
+}
+
+function StabilityLogo() {
+  return (
+    <svg width="110" height="20" viewBox="0 0 135 24" fill="none" aria-label="Stability AI">
+      <path d="M6 12h4l2-6 2 12 2-9 2 3h4" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Stability AI</text>
+    </svg>
+  );
+}
+
+function MistralLogo() {
+  return (
+    <svg width="88" height="20" viewBox="0 0 105 24" fill="none" aria-label="Mistral">
+      <rect x="4" y="4" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+      <rect x="10" y="4" width="4" height="4" fill="rgba(255,255,255,0.4)"/>
+      <rect x="16" y="4" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+      <rect x="4" y="10" width="4" height="4" fill="rgba(255,255,255,0.4)"/>
+      <rect x="10" y="10" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+      <rect x="16" y="10" width="4" height="4" fill="rgba(255,255,255,0.4)"/>
+      <rect x="4" y="16" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+      <rect x="10" y="16" width="4" height="4" fill="rgba(255,255,255,0.4)"/>
+      <rect x="16" y="16" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Mistral</text>
+    </svg>
+  );
+}
+
+function CohereLogo() {
+  return (
+    <svg width="94" height="20" viewBox="0 0 110 24" fill="none" aria-label="Cohere">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5"/>
+      <circle cx="12" cy="12" r="3" fill="rgba(255,255,255,0.45)"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Cohere</text>
+    </svg>
+  );
+}
+
+function MidjourneyLogo() {
+  return (
+    <svg width="116" height="20" viewBox="0 0 140 24" fill="none" aria-label="Midjourney">
+      <path d="M5 18V6l4 6 4-6v12" stroke="rgba(255,255,255,0.5)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <text x="28" y="16.5" fill="rgba(255,255,255,0.55)" fontSize="13" fontWeight="500" fontFamily="system-ui">Midjourney</text>
+    </svg>
+  );
+}
+
+const providerLogos = [
+  <OpenAILogo key="openai" />,
+  <AnthropicLogo key="anthropic" />,
+  <GeminiLogo key="gemini" />,
+  <MetaLogo key="meta" />,
+  <StabilityLogo key="stability" />,
+  <MistralLogo key="mistral" />,
+  <CohereLogo key="cohere" />,
+  <MidjourneyLogo key="midjourney" />,
 ];
 
 function FeatureCard({
@@ -258,7 +341,7 @@ export default function Features() {
         <p className="mb-4 text-center text-xs uppercase tracking-[0.3em] text-white/25">
           Supported providers
         </p>
-        <Marquee items={logos} speed={28} />
+        <Marquee speed={28}>{providerLogos}</Marquee>
       </motion.div>
     </section>
   );
