@@ -10,11 +10,17 @@ function firstDefined(...values: Array<string | undefined>) {
   return values.find((value) => Boolean(value));
 }
 
-const supabaseUrl = firstDefined(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_URL);
+const supabaseUrl = firstDefined(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_URL
+);
+
 const supabaseAnonKey = firstDefined(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
   process.env.SUPABASE_ANON_KEY
 );
+
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 export function getSupabaseClient() {

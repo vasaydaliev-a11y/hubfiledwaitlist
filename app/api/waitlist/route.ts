@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   if (!supabase) {
     console.error("[waitlist] Missing Supabase env vars:", {
       hasUrl: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL),
-      hasAnon: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY),
+      hasAnon: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY),
       hasServiceRole: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY)
     });
     return NextResponse.json(
