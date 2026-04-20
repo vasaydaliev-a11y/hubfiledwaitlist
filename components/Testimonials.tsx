@@ -89,23 +89,31 @@ export default function Testimonials() {
               </svg>
             </div>
 
-            <p className="relative z-10 flex-1 text-base leading-relaxed text-white/50">
+            <p className="relative z-10 flex-1 text-base leading-relaxed text-white/50 transition-colors duration-300 group-hover:text-white/65">
               &ldquo;{t.quote}&rdquo;
             </p>
 
             <div className="relative z-10 mt-5 flex items-center gap-3">
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white/80"
-                style={{
-                  background: t.accent,
-                  border: `1px solid ${t.accentBorder}`,
-                }}
-              >
-                {t.avatar}
+              <div className="relative">
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white/80 transition-shadow duration-300 group-hover:shadow-[0_0_16px]"
+                  style={{
+                    background: t.accent,
+                    border: `1px solid ${t.accentBorder}`,
+                    // @ts-expect-error CSS custom property for group-hover shadow color
+                    "--tw-shadow-color": t.accent,
+                  }}
+                >
+                  {t.avatar}
+                </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-white/80">{t.name}</p>
-                <p className="text-xs text-white/30">{t.role}</p>
+                <p className="text-sm font-medium text-white/80 transition-colors duration-300 group-hover:text-white">
+                  {t.name}
+                </p>
+                <p className="text-xs text-white/30 transition-colors duration-300 group-hover:text-white/45">
+                  {t.role}
+                </p>
               </div>
             </div>
           </motion.blockquote>

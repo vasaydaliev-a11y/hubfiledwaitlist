@@ -106,7 +106,15 @@ export default function Hero() {
           Workflow automation that actually works. Built in Tashkent, made for the world.
         </motion.p>
 
-        <motion.div custom={0.65} initial="hidden" animate="visible" variants={fade} className="mt-10 w-full">
+        <motion.div custom={0.65} initial="hidden" animate="visible" variants={fade} className="relative mt-10 w-full">
+          <div
+            className="pointer-events-none absolute -inset-x-20 -inset-y-10"
+            aria-hidden="true"
+            style={{
+              background:
+                "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(139,92,246,0.06) 0%, transparent 70%)",
+            }}
+          />
           <WaitlistForm />
         </motion.div>
       </div>
