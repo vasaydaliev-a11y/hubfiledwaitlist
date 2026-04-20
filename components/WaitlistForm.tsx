@@ -215,7 +215,7 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
 
   return (
     <div
-      id="waitlist"
+      id={compact ? undefined : "waitlist"}
       className={compact ? "w-full max-w-xl" : "mx-auto w-full max-w-2xl"}
     >
       <div

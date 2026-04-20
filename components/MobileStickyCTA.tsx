@@ -21,13 +21,16 @@ export default function MobileStickyCTA() {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="fixed bottom-0 left-0 right-0 z-[9996] block p-3 sm:hidden"
       style={{
+        pointerEvents: visible ? "auto" : "none",
         background:
           "linear-gradient(to top, rgba(3,0,20,0.95) 60%, transparent)",
         backdropFilter: "blur(12px)",
       }}
+      aria-hidden={!visible}
     >
       <a
         href="#waitlist"
+        tabIndex={visible ? 0 : -1}
         className="block w-full rounded-xl py-3.5 text-center text-sm font-semibold text-white"
         style={{
           background: "linear-gradient(135deg, #8b5cf6, #6d28d9, #06B6D4)",

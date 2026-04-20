@@ -4,6 +4,12 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Logo from "@/components/Logo";
 
+const navLinks = [
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
+];
+
 export default function Navbar() {
   const { scrollY } = useScroll();
   const bgOpacity = useTransform(scrollY, [0, 100], [0.4, 0.9]);
@@ -28,11 +34,24 @@ export default function Navbar() {
           <Logo size={40} />
         </Link>
 
+        {/* Desktop nav links */}
+        <div className="hidden items-center gap-1 sm:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="rounded-lg px-3 py-1.5 text-sm text-white/40 transition-colors hover:bg-white/[0.03] hover:text-white/70"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
         <motion.a
           href="#waitlist"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="rounded-full px-5 py-2 text-base font-medium text-white/80 transition-colors hover:text-white"
+          className="rounded-full px-5 py-2 text-sm font-medium text-white/80 transition-colors hover:text-white sm:text-base"
           style={{
             border: "1px solid rgba(139, 92, 246, 0.25)",
             background:

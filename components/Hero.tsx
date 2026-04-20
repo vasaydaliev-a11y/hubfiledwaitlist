@@ -18,12 +18,27 @@ const headlineWords = ["The", "Future", "of", "AI,"];
 
 function TypewriterLine() {
   const [count, setCount] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) {
+      setReducedMotion(true);
+      setCount(headlineWords.length);
+      return;
+    }
     if (count >= headlineWords.length) return;
     const id = setTimeout(() => setCount((c) => c + 1), 180);
     return () => clearTimeout(id);
   }, [count]);
+
+  if (reducedMotion) {
+    return (
+      <span className="text-brand-gradient">
+        {headlineWords.join(" ")}{" "}
+      </span>
+    );
+  }
 
   return (
     <span className="text-brand-gradient">
