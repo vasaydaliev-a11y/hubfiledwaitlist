@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   return (
@@ -11,9 +12,9 @@ export default function Navbar() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="sticky top-0 z-50 border-b border-white/[0.04] bg-[rgba(5,5,8,0.75)] backdrop-blur-2xl"
     >
-      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="text-lg font-bold tracking-[-0.02em] text-brand-gradient">
-          HUBFIELD
+      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <Link href="/">
+          <Logo size={30} />
         </Link>
 
         <motion.a
