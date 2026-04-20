@@ -23,8 +23,8 @@ interface Meteor {
   vx: number;
   vy: number;
   trail: number;
-  life: number;
-  maxLife: number;
+  elapsed: number;
+  duration: number;
   w: number;
   hue: number;
 }
@@ -40,10 +40,10 @@ interface Dust {
 }
 
 interface Supernova {
-  x: number;
-  y: number;
+  sx: number;
+  sy: number;
   color: [number, number, number];
-  birth: number;
+  elapsed: number;
   duration: number;
 }
 
@@ -68,7 +68,8 @@ const clamp = (v: number, lo: number, hi: number) =>
 // ── Factories ──
 
 function makeStars(w: number, h: number): Star[] {
-  const n = Math.round(w * h * (w < 768 ? 0.00016 : 0.0003));
+  const density = w < 768 ? 0.00016 : 0.0003;
+  const n = Math.round(w * h * density);
   const out: Star[] = [];
   for (let i = 0; i < n; i++) {
     const depth = Math.random();
@@ -114,18 +115,18 @@ function makeDust(w: number, h: number): Dust[] {
 }
 
 function makeMeteor(w: number, h: number): Meteor {
-  const angle = rng(0.18, 0.55) * Math.PI;
-  const speed = rng(12, 22);
+  const angle = rng(0.2, 0.5) * Math.PI;
+  const speed = rng(700, 1200);
   const fromTop = Math.random() > 0.35;
   return {
-    x: fromTop ? rng(w * 0.05, w * 0.95) : w + 30,
-    y: fromTop ? -30 : rng(0, h * 0.3),
+    x: fromTop ? rng(w * 0.1, w * 0.9) : w + 30,
+    y: fromTop ? -30 : rng(0, h * 0.25),
     vx: -Math.cos(angle) * speed,
     vy: Math.sin(angle) * speed,
-    trail: rng(100, 220),
-    life: 0,
-    maxLife: rng(45, 90),
-    w: rng(1, 2.5),
+    trail: rng(100, 200),
+    elapsed: 0,
+    duration: rng(0.6, 1.4),
+    w: rng(1, 2.2),
     hue: [0, 190, 270, 280, 45][Math.floor(Math.random() * 5)],
   };
 }
@@ -150,10 +151,11 @@ export default function StarField() {
   const lastMeteorT = useRef(0);
   const nextMeteorD = useRef(rng(2500, 7000));
   const lastSnT = useRef(0);
-  const nextSnD = useRef(rng(12000, 30000));
+  const nextSnD = useRef(rng(14000, 32000));
   const reduced = useRef(false);
   const dims = useRef({ w: 0, h: 0 });
   const birthT = useRef(0);
+  const prevTs = useRef(0);
 
   const { scrollY } = useScroll();
   const nY1 = useTransform(scrollY, [0, 5000], [0, -80]);
@@ -213,7 +215,13 @@ export default function StarField() {
     // ── Render loop ──
 
     const draw = (ts: number) => {
-      if (birthT.current === 0) birthT.current = ts;
+      if (birthT.current === 0) {
+        birthT.current = ts;
+        prevTs.current = ts;
+      }
+      const dt = Math.min((ts - prevTs.current) / 1000, 0.05);
+      prevTs.current = ts;
+
       const t = ts * 0.001;
       const age = (ts - birthT.current) / 1000;
       const { w, h } = dims.current;
@@ -269,7 +277,6 @@ export default function StarField() {
         let sy = s.y - sp + py;
         sy = (((sy + buf) % totalH) + totalH) % totalH - buf;
 
-        // Birth cascade — stars appear center-outward
         let ba = 1;
         if (age < 3) {
           const dist = Math.sqrt((sx - w / 2) ** 2 + (sy - h / 2) ** 2);
@@ -284,7 +291,6 @@ export default function StarField() {
 
         const [cr, cg, cb] = s.color;
 
-        // Mouse proximity spotlight
         if (!reduced.current) {
           const dx = sx - mPx;
           const dy = sy - mPy;
@@ -310,10 +316,8 @@ export default function StarField() {
           }
         }
 
-        // Warp-speed stretch
         const ws = warp * s.depth * 14;
 
-        // Glow halo for bright stars
         if (s.glow > 0 && !reduced.current && ba > 0.5) {
           const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, s.glow);
           g.addColorStop(
@@ -331,9 +335,9 @@ export default function StarField() {
           ctx.fill();
         }
 
-        // Star core — circle or warp streak
         const coreColor = `rgba(${cr},${cg},${cb},${a.toFixed(3)})`;
         if (ws > 1) {
+          ctx.save();
           ctx.strokeStyle = `rgba(${cr},${cg},${cb},${(a * 0.8).toFixed(3)})`;
           ctx.lineWidth = s.r * 1.5;
           ctx.lineCap = "round";
@@ -341,6 +345,7 @@ export default function StarField() {
           ctx.moveTo(sx, sy - ws);
           ctx.lineTo(sx, sy + ws);
           ctx.stroke();
+          ctx.restore();
         } else {
           ctx.fillStyle = coreColor;
           ctx.beginPath();
@@ -348,13 +353,13 @@ export default function StarField() {
           ctx.fill();
         }
 
-        // Cross-spike + diagonal for brightest
         if (
           s.glow > 0 &&
           s.alpha > 0.85 &&
           !reduced.current &&
           ba > 0.8
         ) {
+          ctx.save();
           const sLen = s.glow * 2 * tw;
           const sa = a * 0.13;
           ctx.strokeStyle = `rgba(${cr},${cg},${cb},${sa.toFixed(3)})`;
@@ -374,50 +379,47 @@ export default function StarField() {
           ctx.moveTo(sx + dLen, sy - dLen);
           ctx.lineTo(sx - dLen, sy + dLen);
           ctx.stroke();
+          ctx.restore();
         }
       }
 
-      // ── Shooting stars ──
+      // ── Shooting stars (time-based) ──
 
       if (!reduced.current) {
         if (ts - lastMeteorT.current > nextMeteorD.current) {
           meteors.current.push(makeMeteor(w, h));
           lastMeteorT.current = ts;
-          nextMeteorD.current = rng(2500, 8000);
+          nextMeteorD.current = rng(3000, 8000);
         }
 
         meteors.current = meteors.current.filter((m) => {
-          m.x += m.vx;
-          m.y += m.vy;
-          m.life++;
-          if (m.life > m.maxLife) return false;
+          m.elapsed += dt;
+          if (m.elapsed > m.duration) return false;
 
-          const p = m.life / m.maxLife;
-          const fi = Math.min(p * 8, 1);
-          const fo = 1 - Math.max((p - 0.55) / 0.45, 0);
+          m.x += m.vx * dt;
+          m.y += m.vy * dt;
+
+          const p = m.elapsed / m.duration;
+          const fi = clamp(p * 6, 0, 1);
+          const fo = 1 - clamp((p - 0.5) / 0.5, 0, 1);
           const op = fi * fo;
+          if (op <= 0.001) return true;
 
           const spd = Math.sqrt(m.vx ** 2 + m.vy ** 2);
           const dirX = m.vx / spd;
           const dirY = m.vy / spd;
-          const tx = m.x - dirX * m.trail * op;
-          const ty = m.y - dirY * m.trail * op;
+          const tailLen = m.trail * op;
+          const tx = m.x - dirX * tailLen;
+          const ty = m.y - dirY * tailLen;
 
-          const sat = m.hue === 0 ? "0%" : "65%";
+          ctx.save();
+          const sat = m.hue === 0 ? "0%" : "60%";
+
           const g = ctx.createLinearGradient(tx, ty, m.x, m.y);
           g.addColorStop(0, `hsla(${m.hue},${sat},92%,0)`);
-          g.addColorStop(
-            0.4,
-            `hsla(${m.hue},${sat},90%,${(op * 0.2).toFixed(3)})`
-          );
-          g.addColorStop(
-            0.85,
-            `hsla(${m.hue},${sat},94%,${(op * 0.6).toFixed(3)})`
-          );
-          g.addColorStop(
-            1,
-            `hsla(${m.hue},${sat},97%,${(op * 0.9).toFixed(3)})`
-          );
+          g.addColorStop(0.5, `hsla(${m.hue},${sat},90%,${(op * 0.25).toFixed(3)})`);
+          g.addColorStop(0.9, `hsla(${m.hue},${sat},94%,${(op * 0.65).toFixed(3)})`);
+          g.addColorStop(1, `hsla(${m.hue},${sat},97%,${(op * 0.95).toFixed(3)})`);
           ctx.strokeStyle = g;
           ctx.lineWidth = m.w;
           ctx.lineCap = "round";
@@ -426,40 +428,25 @@ export default function StarField() {
           ctx.lineTo(m.x, m.y);
           ctx.stroke();
 
-          const hg = ctx.createRadialGradient(
-            m.x,
-            m.y,
-            0,
-            m.x,
-            m.y,
-            m.w * 5
-          );
-          hg.addColorStop(
-            0,
-            `hsla(${m.hue},${sat},97%,${(op * 0.8).toFixed(3)})`
-          );
-          hg.addColorStop(
-            0.3,
-            `hsla(${m.hue},${sat},92%,${(op * 0.3).toFixed(3)})`
-          );
+          const headR = m.w * 4;
+          const hg = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, headR);
+          hg.addColorStop(0, `hsla(${m.hue},${sat},97%,${(op * 0.85).toFixed(3)})`);
+          hg.addColorStop(0.35, `hsla(${m.hue},${sat},92%,${(op * 0.3).toFixed(3)})`);
           hg.addColorStop(1, `hsla(${m.hue},${sat},90%,0)`);
           ctx.fillStyle = hg;
           ctx.beginPath();
-          ctx.arc(m.x, m.y, m.w * 5, 0, Math.PI * 2);
+          ctx.arc(m.x, m.y, headR, 0, Math.PI * 2);
           ctx.fill();
 
+          ctx.restore();
           return true;
         });
       }
 
-      // ── Supernova ──
+      // ── Supernova (position-locked) ──
 
       if (!reduced.current) {
-        // Spawn
-        if (
-          !sn.current &&
-          ts - lastSnT.current > nextSnD.current
-        ) {
+        if (!sn.current && ts - lastSnT.current > nextSnD.current) {
           const bright = stars.current.filter((s) => s.glow > 0);
           if (bright.length > 0) {
             const pick = bright[Math.floor(Math.random() * bright.length)];
@@ -469,89 +456,70 @@ export default function StarField() {
             let psy = pick.y - psp + ppy;
             psy = (((psy + buf) % totalH) + totalH) % totalH - buf;
             sn.current = {
-              x: pick.x + ppx,
-              y: psy,
+              sx: pick.x + ppx,
+              sy: psy,
               color: pick.color,
-              birth: ts,
-              duration: 3500,
+              elapsed: 0,
+              duration: 3.5,
             };
             lastSnT.current = ts;
             nextSnD.current = rng(18000, 40000);
           }
         }
 
-        // Render
         if (sn.current) {
           const s = sn.current;
-          const el = ts - s.birth;
-          const p = el / s.duration;
+          s.elapsed += dt;
+          const p = s.elapsed / s.duration;
           const [cr, cg, cb] = s.color;
 
           if (p >= 1) {
             sn.current = null;
-          } else if (p < 0.12) {
-            // Flash
-            const fp = p / 0.12;
-            const fr = 4 + fp * 35;
-            const fa = fp * 0.7;
-            const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, fr);
-            g.addColorStop(
-              0,
-              `rgba(255,255,255,${fa.toFixed(3)})`
-            );
-            g.addColorStop(
-              0.4,
-              `rgba(${cr},${cg},${cb},${(fa * 0.5).toFixed(3)})`
-            );
-            g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
-            ctx.fillStyle = g;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, fr, 0, Math.PI * 2);
-            ctx.fill();
-          } else if (p < 0.55) {
-            // Expanding ring
-            const rp = (p - 0.12) / 0.43;
-            const rr = 35 + rp * 180;
-            const rw = 3 - rp * 2.5;
-            const ra = (1 - rp) * 0.45;
-            ctx.strokeStyle = `rgba(${cr},${cg},${cb},${ra.toFixed(3)})`;
-            ctx.lineWidth = Math.max(0.4, rw);
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, rr, 0, Math.PI * 2);
-            ctx.stroke();
-
-            const ig = ctx.createRadialGradient(
-              s.x,
-              s.y,
-              0,
-              s.x,
-              s.y,
-              rr * 0.35
-            );
-            ig.addColorStop(
-              0,
-              `rgba(255,255,255,${((1 - rp) * 0.25).toFixed(3)})`
-            );
-            ig.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
-            ctx.fillStyle = ig;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, rr * 0.35, 0, Math.PI * 2);
-            ctx.fill();
           } else {
-            // Fade
-            const fp = (p - 0.55) / 0.45;
-            const fr = 215 + fp * 60;
-            const fa = (1 - fp) * 0.06;
-            const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, fr);
-            g.addColorStop(
-              0,
-              `rgba(${cr},${cg},${cb},${fa.toFixed(3)})`
-            );
-            g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
-            ctx.fillStyle = g;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, fr, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.save();
+            if (p < 0.12) {
+              const fp = p / 0.12;
+              const fr = 4 + fp * 35;
+              const fa = fp * 0.7;
+              const g = ctx.createRadialGradient(s.sx, s.sy, 0, s.sx, s.sy, fr);
+              g.addColorStop(0, `rgba(255,255,255,${fa.toFixed(3)})`);
+              g.addColorStop(0.4, `rgba(${cr},${cg},${cb},${(fa * 0.5).toFixed(3)})`);
+              g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+              ctx.fillStyle = g;
+              ctx.beginPath();
+              ctx.arc(s.sx, s.sy, fr, 0, Math.PI * 2);
+              ctx.fill();
+            } else if (p < 0.55) {
+              const rp = (p - 0.12) / 0.43;
+              const rr = 35 + rp * 180;
+              const rw = 3 - rp * 2.5;
+              const ra = (1 - rp) * 0.45;
+              ctx.strokeStyle = `rgba(${cr},${cg},${cb},${ra.toFixed(3)})`;
+              ctx.lineWidth = Math.max(0.4, rw);
+              ctx.beginPath();
+              ctx.arc(s.sx, s.sy, rr, 0, Math.PI * 2);
+              ctx.stroke();
+
+              const ig = ctx.createRadialGradient(s.sx, s.sy, 0, s.sx, s.sy, rr * 0.35);
+              ig.addColorStop(0, `rgba(255,255,255,${((1 - rp) * 0.25).toFixed(3)})`);
+              ig.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+              ctx.fillStyle = ig;
+              ctx.beginPath();
+              ctx.arc(s.sx, s.sy, rr * 0.35, 0, Math.PI * 2);
+              ctx.fill();
+            } else {
+              const fp = (p - 0.55) / 0.45;
+              const fr = 215 + fp * 60;
+              const fa = (1 - fp) * 0.06;
+              const g = ctx.createRadialGradient(s.sx, s.sy, 0, s.sx, s.sy, fr);
+              g.addColorStop(0, `rgba(${cr},${cg},${cb},${fa.toFixed(3)})`);
+              g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+              ctx.fillStyle = g;
+              ctx.beginPath();
+              ctx.arc(s.sx, s.sy, fr, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.restore();
           }
         }
       }
@@ -577,7 +545,7 @@ export default function StarField() {
         style={{ zIndex: 0 }}
       />
 
-      {/* Nebula clouds — organic drifting color volumes */}
+      {/* Nebula clouds */}
 
       <motion.div
         className="absolute rounded-full"
