@@ -194,7 +194,7 @@ function ProductCard({
 
           {/* Discount badge */}
           {hasDiscount && (
-            <div className="discount-badge absolute left-3 top-3 z-[3] flex items-center gap-1 rounded-full bg-red-500/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+            <div className="discount-badge absolute left-3 top-3 z-[3] flex items-center gap-1 rounded-full bg-red-500/90 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
               <svg
                 width="10"
                 height="10"
@@ -217,14 +217,14 @@ function ProductCard({
       <div className="relative z-[3] p-5">
         <h3
           className={`font-semibold text-white line-clamp-1 ${
-            featured ? "text-lg" : "text-[15px]"
+            featured ? "text-xl" : "text-lg"
           }`}
         >
           {product.title}
         </h3>
         <p
           className={`mt-1.5 leading-relaxed text-white/45 ${
-            featured ? "text-sm line-clamp-3" : "text-[13px] line-clamp-2"
+            featured ? "text-base line-clamp-3" : "text-sm line-clamp-2"
           }`}
         >
           {product.description}
@@ -235,13 +235,13 @@ function ProductCard({
           <div className="flex items-baseline gap-2">
             <span
               className={`price-shine font-bold ${
-                featured ? "text-base" : "text-sm"
+                featured ? "text-lg" : "text-base"
               }`}
             >
               {formatPrice(product.priceRange.minVariantPrice)}
             </span>
             {hasDiscount && (
-              <span className="text-xs text-white/25 line-through">
+              <span className="text-sm text-white/25 line-through">
                 {formatPrice(product.compareAtPriceRange.minVariantPrice)}
               </span>
             )}
@@ -255,7 +255,7 @@ function ProductCard({
               scale: hovering ? 1 : 0.9,
             }}
             transition={{ duration: 0.25 }}
-            className="flex items-center gap-1.5 rounded-full bg-white/[0.07] px-3 py-1.5 text-[11px] font-medium text-white/70 backdrop-blur-md transition-colors hover:bg-white/[0.12] hover:text-white"
+            className="flex items-center gap-1.5 rounded-full bg-white/[0.07] px-3 py-1.5 text-[13px] font-medium text-white/70 backdrop-blur-md transition-colors hover:bg-white/[0.12] hover:text-white"
           >
             {product.onlineStoreUrl ? (
               <>
@@ -308,15 +308,15 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
           whileInView={{ opacity: 1, letterSpacing: "0.25em" }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-[11px] uppercase text-white/30"
+          className="text-[13px] uppercase text-white/30"
         >
           Marketplace
         </motion.p>
-        <h2 className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
+        <h2 className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
           Featured on the{" "}
           <span className="text-brand-gradient">platform</span>
         </h2>
-        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/40">
+        <p className="mx-auto mt-3 max-w-lg text-base leading-relaxed text-white/40">
           A preview of what&apos;s available when you get access.
         </p>
       </motion.div>

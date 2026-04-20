@@ -21,7 +21,7 @@ export default function Navbar() {
           href="#waitlist"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="rounded-full px-5 py-2 text-sm font-medium text-white/80 transition-colors hover:text-white"
+          className="rounded-full px-5 py-2 text-base font-medium text-white/80 transition-colors hover:text-white"
           style={{
             border: "1px solid rgba(245, 158, 11, 0.25)",
             background:

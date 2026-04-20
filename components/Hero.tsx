@@ -53,7 +53,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={fade}
-          className="neo-glass-subtle mb-7 inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-xs tracking-wide text-white/70"
+          className="neo-glass-subtle mb-7 inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-sm tracking-wide text-white/70"
         >
           <span className="relative inline-flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
@@ -67,7 +67,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={fade}
-          className="max-w-3xl text-balance text-[2.5rem] font-bold leading-[1.08] tracking-[-0.03em] text-white sm:text-[3.5rem] lg:text-[4.5rem]"
+          className="max-w-3xl text-balance text-[3rem] font-bold leading-[1.08] tracking-[-0.03em] text-white sm:text-[4.2rem] lg:text-[5.4rem]"
         >
           <TypewriterLine />
           <br />
@@ -85,7 +85,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={fade}
-          className="mt-5 max-w-xl text-balance text-[0.95rem] leading-relaxed text-white/50 sm:text-base"
+          className="mt-5 max-w-xl text-balance text-lg leading-relaxed text-white/50 sm:text-xl"
         >
           Every major AI model. A marketplace of specialists.
           Workflow automation that actually works. Built in Tashkent, made for the world.

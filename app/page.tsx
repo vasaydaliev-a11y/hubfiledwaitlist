@@ -5,7 +5,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import Stats from "@/components/Stats";
-import Testimonials from "@/components/Testimonials";
+
 import WaitlistForm from "@/components/WaitlistForm";
 import CursorGlow from "@/components/CursorGlow";
 import FeaturedProducts from "@/components/FeaturedProducts";
@@ -23,7 +23,6 @@ export default async function Home() {
       <Stats />
       <Features />
       <HowItWorks />
-      <Testimonials />
       <FeaturedProducts products={products} />
 
       <section className="mx-auto mb-28 w-full max-w-4xl px-4 sm:px-6">
@@ -44,8 +43,8 @@ export default async function Home() {
           />
 
           <div className="relative z-10">
-            <h2 className="text-2xl font-bold tracking-[-0.02em] sm:text-3xl">Get early access</h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-white/40">
+            <h2 className="text-3xl font-bold tracking-[-0.02em] sm:text-4xl">Get early access</h2>
+            <p className="mx-auto mt-3 max-w-md text-base text-white/40">
               First 500 members get 3 months of Pro — free.
             </p>
 

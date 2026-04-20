@@ -78,7 +78,7 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
             }}
             placeholder="you@company.com"
             aria-label="Email address"
-            className="neo-inset h-12 flex-1 rounded-xl px-4 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-amber-400/30 focus:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.4),0_0_16px_rgba(245,158,11,0.12)]"
+            className="neo-inset h-14 flex-1 rounded-xl px-4 text-base text-white outline-none transition placeholder:text-white/30 focus:border-amber-400/30 focus:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.4),0_0_16px_rgba(245,158,11,0.12)]"
           />
 
           <motion.button
@@ -90,7 +90,7 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
               boxShadow: "0 0 30px rgba(245,158,11,0.25), 0 0 60px rgba(124,58,237,0.15)"
             }}
             whileTap={{ scale: isLoading ? 1 : 0.97 }}
-            className="h-12 min-w-[150px] rounded-xl px-6 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60"
+            className="h-14 min-w-[150px] rounded-xl px-6 text-base font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60"
             style={{
               background: "linear-gradient(135deg, #f59e0b, #ea580c, #7C3AED)",
               boxShadow: "0 4px 20px rgba(245,158,11,0.2)"
@@ -107,18 +107,18 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
           </motion.button>
         </div>
 
-        <p className="mt-3 text-xs text-white/35">
+        <p className="mt-3 text-sm text-white/35">
           <AnimatedCounter target={1200} duration={2} suffix="+" /> people on the waitlist
         </p>
 
-        {error ? <p className="mt-2 text-xs text-rose-400/80">{error}</p> : null}
+        {error ? <p className="mt-2 text-sm text-rose-400/80">{error}</p> : null}
 
         {isSuccess ? (
           <motion.p
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 18 }}
-            className="mt-3 text-xs text-emerald-400/80"
+            className="mt-3 text-sm text-emerald-400/80"
           >
             You&apos;re on the list. We&apos;ll notify you.
           </motion.p>

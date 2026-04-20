@@ -31,14 +31,14 @@ export default function Stats() {
               borderRight: index < stats.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none"
             }}
           >
-            <p className="text-xl font-semibold text-white sm:text-2xl">
+            <p className="text-2xl font-semibold text-white sm:text-3xl">
               {stat.suffix === "%" ? (
                 <span>{stat.value}%</span>
               ) : (
                 <AnimatedCounter target={stat.value} duration={2} suffix={stat.suffix} />
               )}
             </p>
-            <p className="mt-1 text-[11px] text-white/30">{stat.label}</p>
+            <p className="mt-1 text-[13px] text-white/30">{stat.label}</p>
           </motion.div>
         ))}
       </div>

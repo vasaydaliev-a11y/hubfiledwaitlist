@@ -76,8 +76,8 @@ export default function Features() {
         transition={{ duration: 0.5 }}
         className="mb-14 text-center"
       >
-        <p className="text-[11px] uppercase tracking-[0.25em] text-white/30">What you get</p>
-        <h2 className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
+        <p className="text-[13px] uppercase tracking-[0.25em] text-white/30">What you get</p>
+        <h2 className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
           One platform. Zero compromises.
         </h2>
       </motion.div>
@@ -115,8 +115,8 @@ export default function Features() {
                 >
                   <Icon className="h-[18px] w-[18px] text-white/80" />
                 </div>
-                <h3 className="text-[15px] font-semibold text-white">{feature.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-white/45">
+                <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
+                <p className="mt-1.5 text-base leading-relaxed text-white/45">
                   {feature.description}
                 </p>
               </div>
@@ -132,7 +132,7 @@ export default function Features() {
         transition={{ duration: 0.5, delay: 0.15 }}
         className="mt-16 rounded-2xl border border-white/[0.04] px-2 py-5 sm:px-4"
       >
-        <p className="mb-4 text-center text-[10px] uppercase tracking-[0.3em] text-white/25">
+        <p className="mb-4 text-center text-xs uppercase tracking-[0.3em] text-white/25">
           Supported providers
         </p>
         <Marquee items={logos} speed={28} />

@@ -30,7 +30,7 @@ export default function HowItWorks() {
         transition={{ duration: 0.5 }}
         className="mb-12 text-center"
       >
-        <h2 className="text-2xl font-bold tracking-[-0.02em] text-white sm:text-3xl">
+        <h2 className="text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
           How it works
         </h2>
       </motion.div>
@@ -48,7 +48,7 @@ export default function HowItWorks() {
             className="relative flex gap-5 pl-1"
           >
             <div
-              className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xs font-bold text-brand-gradient sm:h-12 sm:w-12"
+              className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold text-brand-gradient sm:h-14 sm:w-14"
               style={{
                 border: "1px solid rgba(245, 158, 11, 0.15)",
                 background: "linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.7))"
@@ -57,8 +57,8 @@ export default function HowItWorks() {
               {step.number}
             </div>
             <div className="pt-1.5">
-              <h3 className="text-[15px] font-medium text-white">{step.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-white/40">{step.description}</p>
+              <h3 className="text-lg font-medium text-white">{step.title}</h3>
+              <p className="mt-1 text-base leading-relaxed text-white/40">{step.description}</p>
             </div>
           </motion.div>
         ))}
