@@ -11,25 +11,34 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 pb-8 pt-4 sm:px-6">
-      <div className="grid grid-cols-3 divide-x divide-white/[0.06]">
+    <section className="mx-auto w-full max-w-4xl px-4 pb-12 pt-4 sm:px-6">
+      <div
+        className="grid grid-cols-3 rounded-2xl"
+        style={{
+          border: "1px solid rgba(255,255,255,0.04)",
+          background: "linear-gradient(160deg, rgba(14,14,24,0.6), rgba(8,8,16,0.4))"
+        }}
+      >
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="px-4 py-4 text-center"
+            transition={{ duration: 0.5, delay: index * 0.08 }}
+            className="px-4 py-6 text-center"
+            style={{
+              borderRight: index < stats.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none"
+            }}
           >
-            <p className="text-2xl font-semibold text-white sm:text-3xl">
+            <p className="text-xl font-semibold text-white sm:text-2xl">
               {stat.suffix === "%" ? (
                 <span>{stat.value}%</span>
               ) : (
                 <AnimatedCounter target={stat.value} duration={2} suffix={stat.suffix} />
               )}
             </p>
-            <p className="mt-1 text-xs text-white/40">{stat.label}</p>
+            <p className="mt-1 text-[11px] text-white/30">{stat.label}</p>
           </motion.div>
         ))}
       </div>

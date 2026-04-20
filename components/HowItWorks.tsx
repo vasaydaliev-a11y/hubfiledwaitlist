@@ -22,37 +22,43 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 pb-24 sm:px-6">
+    <section className="mx-auto w-full max-w-4xl px-4 pb-28 sm:px-6">
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
         className="mb-12 text-center"
       >
-        <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+        <h2 className="text-2xl font-bold tracking-[-0.02em] text-white sm:text-3xl">
           How it works
         </h2>
       </motion.div>
 
       <div className="relative flex flex-col gap-8">
-        <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-purple-500/25 via-cyan-400/15 to-transparent sm:left-[23px]" />
+        <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-amber-400/20 via-purple-500/15 to-transparent sm:left-[23px]" />
 
         {steps.map((step, index) => (
           <motion.div
             key={step.number}
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.45, delay: index * 0.12 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
             className="relative flex gap-5 pl-1"
           >
-            <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-background text-sm font-semibold text-brand-gradient shadow-neo-outer sm:h-12 sm:w-12">
+            <div
+              className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xs font-bold text-brand-gradient sm:h-12 sm:w-12"
+              style={{
+                border: "1px solid rgba(245, 158, 11, 0.15)",
+                background: "linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.7))"
+              }}
+            >
               {step.number}
             </div>
-            <div className="pt-1">
-              <h3 className="text-base font-medium text-white">{step.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-white/50">{step.description}</p>
+            <div className="pt-1.5">
+              <h3 className="text-[15px] font-medium text-white">{step.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-white/40">{step.description}</p>
             </div>
           </motion.div>
         ))}

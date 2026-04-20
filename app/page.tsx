@@ -8,7 +8,6 @@ import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import WaitlistForm from "@/components/WaitlistForm";
 import CursorGlow from "@/components/CursorGlow";
-import GradientBorder from "@/components/GradientBorder";
 
 export default function Home() {
   return (
@@ -22,17 +21,26 @@ export default function Home() {
       <HowItWorks />
       <Testimonials />
 
-      <section className="mx-auto mb-24 w-full max-w-4xl px-4 sm:px-6">
-        <GradientBorder borderRadius="1.25rem">
+      <section className="mx-auto mb-28 w-full max-w-4xl px-4 sm:px-6">
+        <div
+          className="relative overflow-hidden rounded-2xl p-8 text-center sm:p-12"
+          style={{
+            border: "1px solid rgba(245, 158, 11, 0.1)",
+            background:
+              "linear-gradient(160deg, rgba(14,14,24,0.92), rgba(8,8,16,0.7))"
+          }}
+        >
           <div
-            className="neo-glass-raised rounded-2xl p-8 text-center sm:p-12"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(145deg, rgba(18,18,32,0.92), rgba(10,11,22,0.75)), radial-gradient(circle at top, rgba(124,58,237,0.2), transparent 55%)"
+                "radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.08), transparent 55%)"
             }}
-          >
-            <h2 className="text-2xl font-bold sm:text-3xl">Get early access</h2>
-            <p className="mx-auto mt-3 max-w-lg text-sm text-white/55">
+          />
+
+          <div className="relative z-10">
+            <h2 className="text-2xl font-bold tracking-[-0.02em] sm:text-3xl">Get early access</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-white/40">
               First 500 members get 3 months of Pro — free.
             </p>
 
@@ -40,7 +48,7 @@ export default function Home() {
               <WaitlistForm compact />
             </div>
           </div>
-        </GradientBorder>
+        </div>
       </section>
 
       <Footer />

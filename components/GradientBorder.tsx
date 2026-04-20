@@ -20,14 +20,14 @@ export default function GradientBorder({
         style={{ borderRadius }}
         animate={{
           background: [
-            "linear-gradient(0deg, #7C3AED, #06B6D4, #7C3AED)",
-            "linear-gradient(120deg, #06B6D4, #7C3AED, #06B6D4)",
-            "linear-gradient(240deg, #7C3AED, #06B6D4, #7C3AED)",
-            "linear-gradient(360deg, #06B6D4, #7C3AED, #06B6D4)"
+            "linear-gradient(0deg, #f59e0b, #7C3AED, #06B6D4, #f59e0b)",
+            "linear-gradient(120deg, #06B6D4, #f59e0b, #7C3AED, #06B6D4)",
+            "linear-gradient(240deg, #7C3AED, #06B6D4, #f59e0b, #7C3AED)",
+            "linear-gradient(360deg, #f59e0b, #7C3AED, #06B6D4, #f59e0b)"
           ]
         }}
         transition={{
-          duration: 6,
+          duration: 8,
           repeat: Infinity,
           ease: "linear"
         }}
