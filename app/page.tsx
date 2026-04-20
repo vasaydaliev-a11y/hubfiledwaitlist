@@ -8,8 +8,12 @@ import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import WaitlistForm from "@/components/WaitlistForm";
 import CursorGlow from "@/components/CursorGlow";
+import FeaturedProducts from "@/components/FeaturedProducts";
+import { getFeaturedProducts } from "@/lib/shopify";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getFeaturedProducts(6);
+
   return (
     <main className="noise-overlay vignette relative overflow-hidden bg-background text-white">
       <ScrollProgress />
@@ -20,6 +24,7 @@ export default function Home() {
       <Features />
       <HowItWorks />
       <Testimonials />
+      <FeaturedProducts products={products} />
 
       <section className="mx-auto mb-28 w-full max-w-4xl px-4 sm:px-6">
         <div
