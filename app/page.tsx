@@ -16,6 +16,7 @@ import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import WaitlistForm from "@/components/WaitlistForm";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
+import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
 import { getFeaturedProducts } from "@/lib/shopify";
 
@@ -93,6 +94,7 @@ export default async function Home() {
 
       <Footer />
       <MobileStickyCTA />
+      <BackToTop />
     </main>
   );
 }

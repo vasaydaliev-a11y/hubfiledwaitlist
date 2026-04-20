@@ -70,6 +70,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-background antialiased`}>
+        <a href="#waitlist" className="skip-link">
+          Skip to waitlist
+        </a>
         {children}
       </body>
     </html>

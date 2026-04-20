@@ -1,16 +1,22 @@
 "use client";
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function CursorGlow() {
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
+  const [enabled, setEnabled] = useState(true);
 
   const springX = useSpring(mouseX, { damping: 25, stiffness: 150 });
   const springY = useSpring(mouseY, { damping: 25, stiffness: 150 });
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setEnabled(false);
+      return;
+    }
+
     const handleMouseMove = (event: MouseEvent) => {
       mouseX.set(event.clientX);
       mouseY.set(event.clientY);
@@ -20,9 +26,12 @@ export default function CursorGlow() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
+  if (!enabled) return null;
+
   return (
     <motion.div
       className="pointer-events-none fixed z-[9997] hidden lg:block"
+      aria-hidden="true"
       style={{
         x: springX,
         y: springY,
@@ -32,7 +41,7 @@ export default function CursorGlow() {
         marginTop: -250,
         background:
           "radial-gradient(circle, rgba(139,92,246,0.1) 0%, rgba(6,182,212,0.05) 35%, transparent 65%)",
-        filter: "blur(2px)"
+        filter: "blur(2px)",
       }}
     />
   );
