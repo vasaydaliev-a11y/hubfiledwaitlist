@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorGlow from "@/components/CursorGlow";
@@ -5,20 +6,21 @@ import StarField from "@/components/StarField";
 import Preloader from "@/components/Preloader";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
-import DemoPreview from "@/components/DemoPreview";
-import Features from "@/components/Features";
-import TrustBadges from "@/components/TrustBadges";
-import Comparison from "@/components/Comparison";
-import HowItWorks from "@/components/HowItWorks";
-import Testimonials from "@/components/Testimonials";
-import FeaturedProducts from "@/components/FeaturedProducts";
-import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
 import WaitlistForm from "@/components/WaitlistForm";
-import MobileStickyCTA from "@/components/MobileStickyCTA";
-import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
 import { getFeaturedProducts } from "@/lib/shopify";
+
+const DemoPreview = dynamic(() => import("@/components/DemoPreview"));
+const Features = dynamic(() => import("@/components/Features"));
+const TrustBadges = dynamic(() => import("@/components/TrustBadges"));
+const Comparison = dynamic(() => import("@/components/Comparison"));
+const HowItWorks = dynamic(() => import("@/components/HowItWorks"));
+const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const FeaturedProducts = dynamic(() => import("@/components/FeaturedProducts"));
+const Pricing = dynamic(() => import("@/components/Pricing"));
+const FAQ = dynamic(() => import("@/components/FAQ"));
+const MobileStickyCTA = dynamic(() => import("@/components/MobileStickyCTA"));
+const BackToTop = dynamic(() => import("@/components/BackToTop"));
 
 function CosmicDivider() {
   return (
@@ -62,7 +64,7 @@ export default async function Home() {
 
       <section className="mx-auto mb-28 w-full max-w-4xl px-4 sm:px-6">
         <div
-          className="relative overflow-hidden rounded-2xl p-8 text-center sm:p-12"
+          className="product-card relative overflow-hidden rounded-2xl p-8 text-center sm:p-12"
           style={{
             border: "1px solid rgba(139, 92, 246, 0.12)",
             background:
@@ -73,16 +75,31 @@ export default async function Home() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08), transparent 55%)",
+                "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.1), transparent 55%)",
             }}
           />
 
           <div className="relative z-10">
+            <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-amber-300/70"
+              style={{
+                border: "1px solid rgba(245,158,11,0.15)",
+                background: "rgba(245,158,11,0.06)",
+              }}
+            >
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-50" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-300" />
+              </span>
+              Only 127 spots remaining
+            </div>
+
             <h2 className="text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
               Get early access
             </h2>
             <p className="mx-auto mt-3 max-w-md text-base text-white/40">
               First 500 members get 3 months of Pro — free.
+              <br />
+              <span className="text-white/25">No credit card required.</span>
             </p>
 
             <div className="mt-7 flex justify-center">

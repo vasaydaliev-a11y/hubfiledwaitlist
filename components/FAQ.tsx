@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const faqs = [
   {
@@ -33,6 +33,34 @@ const faqs = [
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const toggle = useCallback(
+    (i: number) => setOpenIndex((prev) => (prev === i ? null : i)),
+    []
+  );
+
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent, i: number) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = (i + 1) % faqs.length;
+        (document.getElementById(`faq-btn-${next}`) as HTMLElement)?.focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = (i - 1 + faqs.length) % faqs.length;
+        (document.getElementById(`faq-btn-${prev}`) as HTMLElement)?.focus();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        (document.getElementById("faq-btn-0") as HTMLElement)?.focus();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        (
+          document.getElementById(`faq-btn-${faqs.length - 1}`) as HTMLElement
+        )?.focus();
+      }
+    },
+    []
+  );
+
   return (
     <section id="faq" className="mx-auto w-full max-w-3xl px-4 pb-28 sm:px-6">
       <motion.div
@@ -50,12 +78,16 @@ export default function FAQ() {
         </h2>
       </motion.div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" role="list">
         {faqs.map((faq, i) => {
           const isOpen = openIndex === i;
+          const panelId = `faq-panel-${i}`;
+          const btnId = `faq-btn-${i}`;
+
           return (
             <motion.div
               key={i}
+              role="listitem"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -72,11 +104,30 @@ export default function FAQ() {
               }}
             >
               <button
-                onClick={() => setOpenIndex(isOpen ? null : i)}
+                id={btnId}
+                onClick={() => toggle(i)}
+                onKeyDown={(e) => onKeyDown(e, i)}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
                 className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-white/[0.01]"
               >
-                <span className="text-base font-medium text-white/90">
-                  {faq.q}
+                <span className="flex items-center gap-3">
+                  <span
+                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-semibold tabular-nums transition-colors duration-300"
+                    style={{
+                      color: isOpen
+                        ? "rgba(196,132,252,0.8)"
+                        : "rgba(139,92,246,0.3)",
+                      background: isOpen
+                        ? "rgba(139,92,246,0.12)"
+                        : "rgba(139,92,246,0.04)",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-base font-medium text-white/90">
+                    {faq.q}
+                  </span>
                 </span>
                 <motion.span
                   animate={{ rotate: isOpen ? 45 : 0 }}
@@ -95,6 +146,7 @@ export default function FAQ() {
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
+                    aria-hidden="true"
                   >
                     <path d="M7 1v12M1 7h12" />
                   </svg>
@@ -104,13 +156,19 @@ export default function FAQ() {
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={btnId}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{
+                      height: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                      opacity: { duration: 0.25, delay: 0.05 },
+                    }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-5 text-base leading-relaxed text-white/40">
+                    <p className="px-5 pb-5 pl-14 text-base leading-relaxed text-white/40">
                       {faq.a}
                     </p>
                   </motion.div>

@@ -55,7 +55,8 @@ export default function Marquee({ items, speed = 30 }: MarqueeProps) {
         {duplicated.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="neo-inset whitespace-nowrap rounded-lg px-5 py-2 text-sm text-white/55 transition hover:text-white/80"
+            className="neo-inset whitespace-nowrap rounded-lg px-5 py-2 text-sm text-white/55 transition-all duration-300 hover:text-white/80 hover:shadow-[0_0_16px_rgba(139,92,246,0.1),inset_0_1px_0_rgba(139,92,246,0.06)]"
+            style={{ borderColor: "transparent" }}
           >
             {item}
           </span>
