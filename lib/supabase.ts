@@ -6,11 +6,39 @@ import { createClient } from "@supabase/supabase-js";
 //   created_at timestamptz DEFAULT now()
 // );
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Missing Supabase environment variables.");
+function firstDefined(...values: Array<string | undefined>) {
+  return values.find((value) => Boolean(value));
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabaseUrl = firstDefined(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_URL);
+const supabaseAnonKey = firstDefined(
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  process.env.SUPABASE_ANON_KEY
+);
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+export function getSupabaseClient() {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return null;
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey);
+}
+
+export function getSupabaseServerClient() {
+  if (!supabaseUrl) {
+    return null;
+  }
+
+  const serverKey = supabaseServiceRoleKey ?? supabaseAnonKey;
+  if (!serverKey) {
+    return null;
+  }
+
+  return createClient(supabaseUrl, serverKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false
+    }
+  });
+}
