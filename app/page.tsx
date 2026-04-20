@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorGlow from "@/components/CursorGlow";
 import StarField from "@/components/StarField";
+import Preloader from "@/components/Preloader";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import DemoPreview from "@/components/DemoPreview";
@@ -37,6 +38,7 @@ export default async function Home() {
 
   return (
     <main className="noise-overlay vignette relative overflow-hidden bg-background text-white">
+      <Preloader />
       <StarField />
       <ScrollProgress />
       <CursorGlow />
