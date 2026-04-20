@@ -172,9 +172,16 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
   const [error, setError] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const id = setInterval(() => setCooldown((c) => c - 1), 1000);
+    return () => clearInterval(id);
+  }, [cooldown]);
 
   const submitWaitlist = async () => {
-    if (isLoading) return;
+    if (isLoading || cooldown > 0) return;
 
     const trimmedEmail = email.trim().toLowerCase();
 
@@ -196,6 +203,16 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
       });
 
       const data = (await response.json()) as { error?: string };
+
+      if (response.status === 429) {
+        const retryAfter = parseInt(
+          response.headers.get("Retry-After") ?? "60",
+          10
+        );
+        setCooldown(retryAfter);
+        setError(`Too many attempts. Please wait ${retryAfter}s.`);
+        return;
+      }
 
       if (!response.ok) {
         setError(data.error ?? "Something went wrong. Please try again.");
@@ -283,7 +300,7 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
 
           <motion.button
             type="button"
-            disabled={isLoading}
+            disabled={isLoading || cooldown > 0}
             onClick={() => void submitWaitlist()}
             whileHover={{
               scale: isLoading ? 1 : 1.02,
@@ -303,6 +320,8 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                 Joining...
               </span>
+            ) : cooldown > 0 ? (
+              <span className="tabular-nums">Wait {cooldown}s</span>
             ) : (
               "Join Waitlist"
             )}

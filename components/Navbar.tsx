@@ -185,19 +185,41 @@ export default function Navbar() {
               }}
             >
               <div className="flex flex-col gap-1 px-4 py-4">
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    key={link.label}
-                    href={link.href}
-                    onClick={close}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    className="rounded-xl px-4 py-3 text-base text-white/50 transition-colors hover:bg-white/[0.03] hover:text-white/80"
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
+                {navLinks.map((link, i) => {
+                  const active = activeSection === link.href.slice(1);
+                  return (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      onClick={close}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.06 }}
+                      className={`relative flex items-center gap-3 rounded-xl px-4 py-3 text-base transition-colors hover:bg-white/[0.03] hover:text-white/80 ${
+                        active
+                          ? "bg-white/[0.02] text-white/80"
+                          : "text-white/50"
+                      }`}
+                    >
+                      {active && (
+                        <motion.span
+                          layoutId="mobile-nav-indicator"
+                          className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full"
+                          style={{
+                            background:
+                              "linear-gradient(180deg, #8b5cf6, #06b6d4)",
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 350,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      {link.label}
+                    </motion.a>
+                  );
+                })}
 
                 <div className="my-2 h-px w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(139,92,246,0.1), transparent)" }} />
 
