@@ -92,12 +92,12 @@ export default async function Home() {
             </div>
 
             <h2 id="cta-heading" className="text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
-              Get early access to HUBFIELD
+              Start building with AI — join the waitlist
             </h2>
             <p className="mx-auto mt-3 max-w-md text-base text-white/40">
               First 500 members get 3 months of Pro — free.
               <br />
-              <span className="text-white/25">No credit card required.</span>
+              <span className="text-white/25">No credit card. Cancel anytime.</span>
             </p>
 
             <div className="mt-7 flex justify-center">

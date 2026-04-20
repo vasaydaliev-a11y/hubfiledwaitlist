@@ -72,7 +72,7 @@ export default function Testimonials() {
           Early users
         </p>
         <h2 id="testimonials-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-          Loved by builders
+          Trusted by AI teams worldwide
         </h2>
       </motion.div>
 

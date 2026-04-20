@@ -210,7 +210,7 @@ export default function DemoPreview() {
           See it in action
         </p>
         <h2 id="demo-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-          Ship AI in <span className="text-brand-gradient">minutes</span>, not
+          Ship AI features in <span className="text-brand-gradient">minutes</span>, not
           weeks
         </h2>
       </motion.div>

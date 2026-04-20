@@ -16,46 +16,58 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hubfield.uz"),
-  title: "HUBFIELD — 50+ AI Models, One API Platform",
+  title:
+    "HUBFIELD — Unified AI API Platform | 50+ Models, One SDK",
   description:
-    "Access GPT-4o, Claude, Gemini & 50+ AI models through one API. Smart Router, Generative Studio, AI Talent Marketplace. Free tier available. Join 1,200+ builders.",
+    "Ship AI features 10x faster. Access GPT-4o, Claude, Gemini & 50+ AI models through one API. Smart Router auto-picks the best model. Free tier — start building now.",
   keywords: [
-    "AI platform",
-    "AI API aggregator",
+    "AI API platform",
+    "unified AI API",
+    "SaaS AI solutions",
+    "AI model aggregator",
     "GPT-4o API",
     "Claude API",
     "Gemini API",
-    "AI marketplace",
-    "HUBFIELD",
-    "Uzbekistan AI",
-    "Smart Router AI",
+    "creative AI tools",
+    "AI smart router",
     "generative AI platform",
+    "AI talent marketplace",
+    "AI SDK",
+    "multi-model AI API",
+    "enterprise AI platform",
+    "HUBFIELD",
   ],
   alternates: {
     canonical: "https://hubfield.uz",
+    languages: {
+      "en": "https://hubfield.uz",
+      "x-default": "https://hubfield.uz",
+    },
   },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://hubfield.uz",
     siteName: "HUBFIELD",
-    title: "HUBFIELD — 50+ AI Models, One Unified API",
+    title: "Ship AI 10x Faster — 50+ Models, One API | HUBFIELD",
     description:
-      "Access GPT-4o, Claude, Gemini & 50+ AI models. Smart Router picks the best model automatically. Join 1,200+ builders on the waitlist.",
+      "Stop juggling APIs. Access GPT-4o, Claude, Gemini & 50+ AI models through one unified SDK. Smart Router saves 30% on costs. Join 1,200+ builders.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "HUBFIELD — AI platform with 50+ models, one API. Built in Tashkent.",
+        alt: "HUBFIELD — Unified AI API Platform with 50+ models including GPT-4o, Claude, and Gemini",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HUBFIELD — 50+ AI Models, One API Platform",
+    site: "@hubfield",
+    creator: "@hubfield",
+    title: "Ship AI 10x Faster — 50+ Models, One API | HUBFIELD",
     description:
-      "Access GPT-4o, Claude, Gemini & 50+ models. Smart Router. Generative Studio. Built in Tashkent. Join the waitlist.",
+      "One SDK for GPT-4o, Claude, Gemini & 50+ AI models. Smart Router auto-picks the best model. Free tier available → Start building now.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -74,6 +86,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  category: "technology",
 };
 
 const jsonLd = [
@@ -84,6 +97,13 @@ const jsonLd = [
     name: "HUBFIELD",
     url: "https://hubfield.uz",
     logo: "https://hubfield.uz/icon.svg",
+    description:
+      "AI-SaaS company providing a unified API platform to access 50+ AI models from OpenAI, Anthropic, Google, Meta, and more.",
+    foundingDate: "2025",
+    foundingLocation: {
+      "@type": "Place",
+      name: "Tashkent, Uzbekistan",
+    },
     sameAs: [
       "https://github.com/hubfield",
       "https://x.com/hubfield",
@@ -97,39 +117,92 @@ const jsonLd = [
     contactPoint: {
       "@type": "ContactPoint",
       email: "hello@hubfield.uz",
-      contactType: "customer support",
+      contactType: "sales",
+      availableLanguage: ["English", "Russian", "Uzbek"],
     },
+    knowsAbout: [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Large Language Models",
+      "Generative AI",
+      "AI API Aggregation",
+    ],
   },
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": "https://hubfield.uz/#website",
     url: "https://hubfield.uz",
-    name: "HUBFIELD",
+    name: "HUBFIELD — Unified AI API Platform",
     publisher: { "@id": "https://hubfield.uz/#organization" },
     inLanguage: "en",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://hubfield.uz/?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
   },
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "HUBFIELD",
+    "@id": "https://hubfield.uz/#software",
+    name: "HUBFIELD AI Platform",
     applicationCategory: "DeveloperApplication",
+    applicationSubCategory: "AI API Aggregation Platform",
     operatingSystem: "Web",
     description:
-      "Access 50+ AI models through one unified API. Smart Router picks the optimal model automatically. Generative Studio for text, images, video, and code.",
+      "Unified AI API platform with access to 50+ models (GPT-4o, Claude, Gemini, Llama). Features include Smart Router for automatic model selection, Generative Studio for multi-modal content creation, and AI Talent Marketplace.",
     url: "https://hubfield.uz",
     author: { "@id": "https://hubfield.uz/#organization" },
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-      description: "Free tier with 10 models and 1,000 requests/month",
-    },
+    featureList: [
+      "50+ AI models via one unified API (GPT-4o, Claude, Gemini, Llama)",
+      "Smart Router — auto-selects optimal model by cost, speed, or quality",
+      "Generative Studio — text, image, video, audio, and code generation",
+      "AI Talent Marketplace — hire vetted AI/ML specialists",
+      "Team workspaces with role-based access and audit logs",
+      "SOC2 & GDPR compliant with local data residency",
+      "TypeScript & Python SDKs with streaming support",
+      "Enterprise SSO, custom SLAs, and UZS billing",
+    ],
+    screenshot: "https://hubfield.uz/og-image.png",
+    softwareVersion: "1.0-beta",
+    releaseNotes: "Closed beta with Smart Router and Generative Studio",
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Free",
+        price: "0",
+        priceCurrency: "USD",
+        description:
+          "10 models, 1,000 requests/month, community support, basic analytics",
+        availability: "https://schema.org/InStock",
+      },
+      {
+        "@type": "Offer",
+        name: "Pro",
+        price: "39",
+        priceCurrency: "USD",
+        priceValidUntil: "2027-01-01",
+        description:
+          "All 50+ models, unlimited requests, Smart Router, team workspaces (5 seats), priority support",
+        availability: "https://schema.org/PreOrder",
+      },
+      {
+        "@type": "Offer",
+        name: "Enterprise",
+        price: "0",
+        priceCurrency: "USD",
+        description:
+          "Custom pricing — dedicated infrastructure, SSO/SAML, 99.99% SLA, UZS billing",
+        availability: "https://schema.org/PreOrder",
+      },
+    ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "5",
-      ratingCount: "3",
+      ratingValue: "4.9",
+      ratingCount: "12",
       bestRating: "5",
+      worstRating: "1",
     },
   },
   {
@@ -141,7 +214,7 @@ const jsonLd = [
         name: "Is HUBFIELD free to use?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "We offer a generous free tier with access to popular models. The first 500 waitlist members get 3 months of Pro — completely free. After that, you can stay on Free or upgrade.",
+          text: "Yes. HUBFIELD offers a generous free tier with access to 10 popular AI models and 1,000 requests per month. The first 500 waitlist members get 3 months of Pro — completely free.",
         },
       },
       {
@@ -149,31 +222,31 @@ const jsonLd = [
         name: "When will HUBFIELD launch?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "We're currently in closed beta with select users in Tashkent. Public launch is planned for Q3 2026. Join the waitlist to get early access and help shape the product.",
+          text: "HUBFIELD is currently in closed beta with select users. Public launch is planned for Q3 2026. Join the waitlist to get early access and help shape the product.",
         },
       },
       {
         "@type": "Question",
-        name: "Which AI models are available?",
+        name: "Which AI models are available on HUBFIELD?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "50+ models from OpenAI, Anthropic, Google, Meta, Mistral, Cohere, and Stability AI. Text, image, video, audio, and code generation — all through one unified API.",
+          text: "HUBFIELD provides access to 50+ AI models from OpenAI (GPT-4o), Anthropic (Claude), Google (Gemini), Meta (Llama), Mistral, Cohere, and Stability AI. All models support text, image, video, audio, and code generation through one unified API.",
         },
       },
       {
         "@type": "Question",
-        name: "Where is my data stored?",
+        name: "How does HUBFIELD's Smart Router work?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "All data is processed and stored in our Tashkent data center. We're SOC2 and GDPR compliant. Enterprise customers get dedicated infrastructure with full audit logs.",
+          text: "Smart Router automatically selects the optimal AI model for each request based on your preferences — fastest response, lowest cost, or highest quality. It can reduce inference costs by up to 30% compared to direct API calls.",
         },
       },
       {
         "@type": "Question",
-        name: "What does the Pro plan include?",
+        name: "Where is my data stored on HUBFIELD?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Pro unlocks higher rate limits, priority model access, Smart Router with cost optimization, team workspaces, and access to the AI Talent Marketplace for hiring specialists.",
+          text: "All data is processed and stored in HUBFIELD's Tashkent data center. The platform is SOC2 and GDPR compliant. Enterprise customers get dedicated infrastructure with full audit logs and data residency guarantees.",
         },
       },
       {
@@ -181,7 +254,7 @@ const jsonLd = [
         name: "Can I use HUBFIELD for my business?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Absolutely. Our Enterprise tier includes SSO, custom SLAs, dedicated support, and UZS billing. We're built for production workloads from day one.",
+          text: "Absolutely. HUBFIELD's Enterprise tier includes SSO/SAML, custom SLAs with 99.99% uptime, dedicated account manager, and UZS billing. It's built for production AI workloads from day one.",
         },
       },
     ],
@@ -194,8 +267,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <head>
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

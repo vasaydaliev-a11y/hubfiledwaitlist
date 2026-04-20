@@ -320,7 +320,7 @@ export default function Features() {
           What you get
         </p>
         <h2 id="features-heading" className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
-          One platform. Zero compromises.
+          One AI platform. Every model you need.
         </h2>
       </motion.div>
 

@@ -74,7 +74,7 @@ export default function FAQ() {
           FAQ
         </p>
         <h2 id="faq-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-          Common questions
+          Frequently asked questions about HUBFIELD
         </h2>
       </motion.div>
 

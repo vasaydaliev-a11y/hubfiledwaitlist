@@ -105,8 +105,8 @@ export default function Comparison() {
           Why switch
         </p>
         <h2 id="comparison-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-          Stop juggling.{" "}
-          <span className="text-brand-gradient">Start building.</span>
+          Replace 5 AI APIs with{" "}
+          <span className="text-brand-gradient">one platform.</span>
         </h2>
       </motion.div>
 

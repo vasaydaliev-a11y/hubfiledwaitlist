@@ -331,7 +331,7 @@ export default function Pricing() {
           Pricing
         </p>
         <h2 id="pricing-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-          Simple, transparent pricing
+          AI platform pricing — start free
         </h2>
         <p className="mx-auto mt-3 max-w-md text-base text-white/40">
           Start free. Scale when you&apos;re ready.

@@ -99,7 +99,7 @@ export default function HowItWorks() {
           Getting started
         </p>
         <h2 id="howitworks-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
-          How it works
+          Start building with AI in 3 steps
         </h2>
       </motion.div>
 

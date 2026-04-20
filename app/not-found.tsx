@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "404 — Page Not Found | HUBFIELD",
+  title: "404 — Page Not Found | HUBFIELD AI Platform",
   description:
-    "The page you're looking for doesn't exist. Return to HUBFIELD — the AI platform with 50+ models and one unified API.",
+    "This page doesn't exist. Return to HUBFIELD — the unified AI API platform with 50+ models including GPT-4o, Claude & Gemini.",
   robots: { index: false, follow: true },
 };
 
