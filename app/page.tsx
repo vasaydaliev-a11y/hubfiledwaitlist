@@ -22,24 +22,21 @@ export default function Home() {
       <HowItWorks />
       <Testimonials />
 
-      <section className="mx-auto mb-24 w-full max-w-5xl px-4 sm:px-6">
-        <GradientBorder borderRadius="1.5rem">
+      <section className="mx-auto mb-24 w-full max-w-4xl px-4 sm:px-6">
+        <GradientBorder borderRadius="1.25rem">
           <div
-            className="neo-glass-raised rounded-3xl p-8 text-center sm:p-14"
+            className="neo-glass-raised rounded-2xl p-8 text-center sm:p-12"
             style={{
               background:
-                "linear-gradient(145deg, rgba(18,18,32,0.92), rgba(10,11,22,0.75)), radial-gradient(circle at top, rgba(124,58,237,0.25), transparent 55%)"
+                "linear-gradient(145deg, rgba(18,18,32,0.92), rgba(10,11,22,0.75)), radial-gradient(circle at top, rgba(124,58,237,0.2), transparent 55%)"
             }}
           >
-            <p className="text-xs uppercase tracking-[0.22em] text-cyan-200/75">
-              Early Access
-            </p>
-            <h2 className="mt-4 text-3xl font-bold sm:text-4xl">Be Among the First</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-white/65 sm:text-base">
-              Early access members get 3 months free Pro plan.
+            <h2 className="text-2xl font-bold sm:text-3xl">Get early access</h2>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-white/55">
+              First 500 members get 3 months of Pro — free.
             </p>
 
-            <div className="mt-8 flex justify-center">
+            <div className="mt-7 flex justify-center">
               <WaitlistForm compact />
             </div>
           </div>

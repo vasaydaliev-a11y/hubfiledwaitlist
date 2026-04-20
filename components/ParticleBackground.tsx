@@ -2,72 +2,40 @@
 
 import { motion } from "framer-motion";
 
-const particles = Array.from({ length: 32 }, (_, index) => ({
-  id: index,
-  size: 1.5 + (index % 5),
-  top: (index * 13 + 7) % 100,
-  left: (index * 23 + 11) % 100,
-  duration: 7 + (index % 8) * 1.6
+const particles = Array.from({ length: 18 }, (_, i) => ({
+  id: i,
+  size: 1.5 + (i % 3),
+  top: (i * 17 + 5) % 100,
+  left: (i * 29 + 7) % 100,
+  duration: 10 + (i % 6) * 2
 }));
 
-const meshOrbs = [
-  {
-    top: "10%",
-    left: "15%",
-    size: 400,
-    colors: ["rgba(124,58,237,0.22)", "rgba(88,28,235,0.08)"],
-    blur: 80,
-    duration: 18
-  },
-  {
-    top: "55%",
-    left: "65%",
-    size: 450,
-    colors: ["rgba(6,182,212,0.16)", "rgba(8,145,178,0.06)"],
-    blur: 90,
-    duration: 22
-  },
-  {
-    top: "75%",
-    left: "25%",
-    size: 300,
-    colors: ["rgba(124,58,237,0.12)", "rgba(168,85,247,0.05)"],
-    blur: 70,
-    duration: 15
-  },
-  {
-    top: "20%",
-    left: "80%",
-    size: 250,
-    colors: ["rgba(6,182,212,0.1)", "rgba(34,211,238,0.04)"],
-    blur: 65,
-    duration: 20
-  }
+const orbs = [
+  { top: "12%", left: "18%", size: 350, color: "rgba(124,58,237,0.14)", blur: 90, duration: 20 },
+  { top: "58%", left: "68%", size: 380, color: "rgba(6,182,212,0.09)", blur: 100, duration: 25 }
 ];
 
 export default function ParticleBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,_rgba(124,58,237,0.18),_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,_rgba(6,182,212,0.11),_transparent_45%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,_rgba(124,58,237,0.14),_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_65%,_rgba(6,182,212,0.08),_transparent_45%)]" />
 
-      {meshOrbs.map((orb, index) => (
+      {orbs.map((orb, i) => (
         <motion.div
-          key={`orb-${index}`}
+          key={`orb-${i}`}
           className="absolute rounded-full"
           style={{
             top: orb.top,
             left: orb.left,
             width: orb.size,
             height: orb.size,
-            background: `radial-gradient(circle at 40% 40%, ${orb.colors[0]}, ${orb.colors[1]}, transparent 70%)`,
+            background: `radial-gradient(circle at 40% 40%, ${orb.color}, transparent 70%)`,
             filter: `blur(${orb.blur}px)`
           }}
           animate={{
-            x: [0, 40, -30, 15, 0],
-            y: [0, -35, 20, -10, 0],
-            scale: [1, 1.12, 0.92, 1.05, 1],
-            rotate: [0, 5, -3, 2, 0]
+            x: [0, 25, -15, 0],
+            y: [0, -20, 12, 0]
           }}
           transition={{
             duration: orb.duration,
@@ -77,28 +45,22 @@ export default function ParticleBackground() {
         />
       ))}
 
-      {particles.map((particle) => (
+      {particles.map((p) => (
         <motion.span
-          key={particle.id}
-          className="absolute rounded-full"
+          key={p.id}
+          className="absolute rounded-full bg-white/30"
           style={{
-            width: particle.size,
-            height: particle.size,
-            top: `${particle.top}%`,
-            left: `${particle.left}%`,
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.6), rgba(255,255,255,0.1))",
-            boxShadow: "0 0 6px rgba(255,255,255,0.15)"
+            width: p.size,
+            height: p.size,
+            top: `${p.top}%`,
+            left: `${p.left}%`
           }}
-          animate={{
-            y: [0, -28, 0],
-            opacity: [0.15, 0.5, 0.15]
-          }}
+          animate={{ y: [0, -18, 0], opacity: [0.1, 0.35, 0.1] }}
           transition={{
-            duration: particle.duration,
+            duration: p.duration,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: particle.id * 0.1
+            delay: p.id * 0.15
           }}
         />
       ))}

@@ -1,40 +1,46 @@
 "use client";
 
 import { motion } from "framer-motion";
-import GradientBorder from "@/components/GradientBorder";
+import { ModelsIcon, StudioIcon, MarketplaceIcon, RouterIcon, ShieldIcon, GlobeIcon } from "@/components/Icons";
 import TiltCard from "@/components/TiltCard";
 import Marquee from "@/components/Marquee";
 
 const features = [
   {
-    icon: "🤖",
+    icon: ModelsIcon,
     title: "50+ AI Models",
-    description: "GPT-4o, Claude, Gemini, Llama and more in one place"
+    description: "GPT-4o, Claude, Gemini, Llama — one API, every frontier model.",
+    span: "sm:col-span-2"
   },
   {
-    icon: "🎨",
-    title: "Generative AI Studio",
-    description: "Images, video, audio, code — generate anything"
+    icon: StudioIcon,
+    title: "Generative Studio",
+    description: "Text, images, video, audio, code. One canvas for everything.",
+    span: ""
   },
   {
-    icon: "🧑‍💻",
-    title: "AI Freelance Marketplace",
-    description: "Hire vetted AI specialists for your projects"
+    icon: RouterIcon,
+    title: "Smart Router",
+    description: "Automatically picks the fastest, cheapest, or most capable model for each request.",
+    span: ""
   },
   {
-    icon: "⚡",
-    title: "Smart Model Router",
-    description: "Auto-selects the best AI model for your task"
+    icon: MarketplaceIcon,
+    title: "AI Talent Marketplace",
+    description: "Vetted specialists ready to build, fine-tune, and deploy for you.",
+    span: "sm:col-span-2"
   },
   {
-    icon: "🔒",
-    title: "Enterprise Ready",
-    description: "SOC2, GDPR compliant, team workspaces"
+    icon: ShieldIcon,
+    title: "Enterprise Grade",
+    description: "SOC2 & GDPR. Team workspaces. Audit logs. Built for serious work.",
+    span: ""
   },
   {
-    icon: "🌍",
-    title: "Built for Central Asia",
-    description: "Localized for Uzbekistan and CIS markets"
+    icon: GlobeIcon,
+    title: "Made for Central Asia",
+    description: "Local infrastructure, UZS billing, Uzbek & Russian language support.",
+    span: "sm:col-span-2 lg:col-span-1"
   }
 ];
 
@@ -59,60 +65,53 @@ export default function Features() {
         transition={{ duration: 0.6 }}
         className="mb-14 text-center"
       >
-        <p className="text-xs uppercase tracking-[0.22em] text-cyan-200/60">Features</p>
+        <p className="text-xs uppercase tracking-[0.22em] text-white/40">What you get</p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Everything AI. One Platform.
+          One platform. Zero compromises.
         </h2>
       </motion.div>
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map((feature, index) => (
-          <GradientBorder key={feature.title} borderRadius="1rem">
-            <TiltCard className="group">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <TiltCard key={feature.title} className={`group ${feature.span}`}>
               <motion.article
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="neo-glass cursor-default rounded-2xl p-6 transition-all duration-300"
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                className="neo-glass h-full cursor-default rounded-2xl p-6 transition-all duration-300 hover:border-white/15"
               >
-                <motion.div
-                  whileHover={{
-                    scale: 1.15,
-                    rotate: [0, -8, 8, 0],
-                    boxShadow:
-                      "inset 4px 4px 10px rgba(0,0,0,0.6), inset -3px -3px 8px rgba(255,255,255,0.03), 0 0 20px rgba(124,58,237,0.25)"
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl text-2xl shadow-neo-inner"
+                <div
+                  className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg text-cyan-200/80 shadow-neo-inner"
                   style={{
-                    background:
-                      "linear-gradient(145deg, rgba(18,18,32,0.9), rgba(10,11,22,0.7))"
+                    background: "linear-gradient(145deg, rgba(18,18,32,0.9), rgba(10,11,22,0.7))"
                   }}
                 >
-                  {feature.icon}
-                </motion.div>
-                <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/65">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-base font-medium text-white">{feature.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-white/55">
                   {feature.description}
                 </p>
               </motion.article>
             </TiltCard>
-          </GradientBorder>
-        ))}
+          );
+        })}
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="neo-glass-subtle mt-16 rounded-2xl px-2 py-7 sm:px-4"
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="mt-16 rounded-2xl border border-white/[0.06] px-2 py-6 sm:px-4"
       >
-        <p className="mb-5 text-center text-xs uppercase tracking-[0.22em] text-white/40">
-          Supported models
+        <p className="mb-4 text-center text-[11px] uppercase tracking-[0.25em] text-white/30">
+          Supported providers
         </p>
-        <Marquee items={logos} speed={25} />
+        <Marquee items={logos} speed={28} />
       </motion.div>
     </section>
   );
