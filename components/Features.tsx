@@ -9,48 +9,48 @@ const features = [
     icon: ModelsIcon,
     title: "50+ AI Models",
     description: "GPT-4o, Claude, Gemini, Llama — one API, every frontier model.",
-    accent: "rgba(245, 158, 11, 0.12)",
-    accentBorder: "rgba(245, 158, 11, 0.15)",
+    accent: "rgba(139, 92, 246, 0.12)",
+    accentBorder: "rgba(139, 92, 246, 0.15)",
     span: "sm:col-span-2"
   },
   {
     icon: StudioIcon,
     title: "Generative Studio",
     description: "Text, images, video, audio, code. One canvas for everything.",
-    accent: "rgba(124, 58, 237, 0.1)",
-    accentBorder: "rgba(124, 58, 237, 0.12)",
+    accent: "rgba(6, 182, 212, 0.1)",
+    accentBorder: "rgba(6, 182, 212, 0.12)",
     span: ""
   },
   {
     icon: RouterIcon,
     title: "Smart Router",
     description: "Picks the fastest, cheapest, or most capable model — automatically.",
-    accent: "rgba(6, 182, 212, 0.1)",
-    accentBorder: "rgba(6, 182, 212, 0.12)",
+    accent: "rgba(236, 72, 153, 0.1)",
+    accentBorder: "rgba(236, 72, 153, 0.12)",
     span: ""
   },
   {
     icon: MarketplaceIcon,
     title: "AI Talent Marketplace",
     description: "Vetted specialists ready to build, fine-tune, and deploy for you.",
-    accent: "rgba(234, 88, 12, 0.1)",
-    accentBorder: "rgba(234, 88, 12, 0.12)",
+    accent: "rgba(196, 132, 252, 0.1)",
+    accentBorder: "rgba(196, 132, 252, 0.12)",
     span: "sm:col-span-2"
   },
   {
     icon: ShieldIcon,
     title: "Enterprise Grade",
     description: "SOC2 & GDPR. Team workspaces. Audit logs. Built for serious work.",
-    accent: "rgba(168, 85, 247, 0.1)",
-    accentBorder: "rgba(168, 85, 247, 0.1)",
+    accent: "rgba(59, 130, 246, 0.1)",
+    accentBorder: "rgba(59, 130, 246, 0.1)",
     span: ""
   },
   {
     icon: GlobeIcon,
     title: "Made for Central Asia",
     description: "Local infrastructure, UZS billing, Uzbek & Russian language support.",
-    accent: "rgba(245, 158, 11, 0.08)",
-    accentBorder: "rgba(245, 158, 11, 0.1)",
+    accent: "rgba(6, 182, 212, 0.08)",
+    accentBorder: "rgba(6, 182, 212, 0.1)",
     span: "sm:col-span-2 lg:col-span-1"
   }
 ];
@@ -95,7 +95,7 @@ export default function Features() {
               className={`group relative cursor-default overflow-hidden rounded-2xl p-5 transition-all duration-500 ${feature.span}`}
               style={{
                 border: `1px solid ${feature.accentBorder}`,
-                background: `linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.65))`
+                background: "linear-gradient(160deg, rgba(10,1,24,0.9), rgba(3,0,20,0.65))"
               }}
             >
               <div
@@ -130,7 +130,8 @@ export default function Features() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.15 }}
-        className="mt-16 rounded-2xl border border-white/[0.04] px-2 py-5 sm:px-4"
+        className="mt-16 rounded-2xl px-2 py-5 sm:px-4"
+        style={{ border: "1px solid rgba(139,92,246,0.06)" }}
       >
         <p className="mb-4 text-center text-xs uppercase tracking-[0.3em] text-white/25">
           Supported providers

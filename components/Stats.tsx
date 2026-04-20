@@ -15,8 +15,8 @@ export default function Stats() {
       <div
         className="grid grid-cols-1 rounded-2xl sm:grid-cols-3"
         style={{
-          border: "1px solid rgba(255,255,255,0.04)",
-          background: "linear-gradient(160deg, rgba(14,14,24,0.6), rgba(8,8,16,0.4))"
+          border: "1px solid rgba(139,92,246,0.06)",
+          background: "linear-gradient(160deg, rgba(10,1,24,0.6), rgba(3,0,20,0.4))"
         }}
       >
         {stats.map((stat, index) => (
@@ -28,7 +28,7 @@ export default function Stats() {
             transition={{ duration: 0.5, delay: index * 0.08 }}
             className="px-4 py-5 text-center sm:py-6"
             style={{
-              borderBottom: index < stats.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+              borderBottom: index < stats.length - 1 ? "1px solid rgba(139,92,246,0.06)" : "none",
             }}
           >
             <p className="text-2xl font-semibold text-white sm:text-3xl">

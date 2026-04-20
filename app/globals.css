@@ -14,8 +14,8 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: #050508;
-  color: #f5f7ff;
+  background: #030014;
+  color: #f0e6ff;
 }
 
 body {
@@ -27,68 +27,81 @@ a {
   text-decoration: none;
 }
 
+/* ── Cosmic gradient text ── */
+
 .text-brand-gradient {
-  background: linear-gradient(135deg, #f5c542 10%, #f59e0b 30%, #e879f9 60%, #7c3aed 90%);
+  background: linear-gradient(135deg, #c084fc 10%, #8b5cf6 30%, #06b6d4 60%, #22d3ee 90%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .text-warm-gradient {
-  background: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #ea580c 100%);
+  background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #ec4899 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
+.text-stellar-gradient {
+  background: linear-gradient(135deg, #fde68a 0%, #f59e0b 40%, #c084fc 80%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Cosmic glass surfaces ── */
+
 .neo-glass {
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.08);
   background: linear-gradient(
     160deg,
-    rgba(14, 14, 24, 0.88),
-    rgba(8, 8, 16, 0.6)
+    rgba(10, 1, 24, 0.88),
+    rgba(3, 0, 20, 0.6)
   );
   backdrop-filter: blur(20px);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    inset 0 1px 0 rgba(139, 92, 246, 0.06);
 }
 
 .neo-glass-subtle {
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.06);
   background: linear-gradient(
     160deg,
-    rgba(12, 12, 22, 0.65),
-    rgba(6, 6, 14, 0.45)
+    rgba(10, 1, 24, 0.65),
+    rgba(3, 0, 20, 0.45)
   );
   backdrop-filter: blur(16px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .neo-glass-raised {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.1);
   background: linear-gradient(
     160deg,
-    rgba(16, 16, 28, 0.92),
-    rgba(10, 10, 20, 0.7)
+    rgba(17, 1, 38, 0.92),
+    rgba(10, 1, 24, 0.7)
   );
   backdrop-filter: blur(24px);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    inset 0 1px 0 rgba(139, 92, 246, 0.08);
 }
 
 .neo-inset {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: linear-gradient(
     160deg,
-    rgba(5, 5, 10, 0.8),
-    rgba(8, 8, 16, 0.6)
+    rgba(3, 0, 14, 0.8),
+    rgba(10, 1, 24, 0.6)
   );
   box-shadow:
     inset 3px 3px 8px rgba(0, 0, 0, 0.5),
-    inset -2px -2px 6px rgba(255, 255, 255, 0.02);
+    inset -2px -2px 6px rgba(139, 92, 246, 0.02);
 }
+
+/* ── Section glow (nebula overhead) ── */
 
 .section-glow {
   position: relative;
@@ -102,13 +115,15 @@ a {
   border-radius: 9999px;
   background: radial-gradient(
     circle at center,
-    rgba(245, 158, 11, 0.12),
-    rgba(124, 58, 237, 0.08) 50%,
+    rgba(139, 92, 246, 0.15),
+    rgba(6, 182, 212, 0.08) 50%,
     transparent 70%
   );
   pointer-events: none;
   z-index: -1;
 }
+
+/* ── Cosmic atmosphere ── */
 
 .noise-overlay::after {
   content: "";
@@ -116,7 +131,7 @@ a {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.018;
+  opacity: 0.022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 128px 128px;
@@ -130,8 +145,92 @@ a {
   pointer-events: none;
   background: radial-gradient(
     ellipse at center,
-    transparent 50%,
-    rgba(0, 0, 0, 0.55) 100%
+    transparent 40%,
+    rgba(3, 0, 20, 0.65) 100%
+  );
+}
+
+/* ── Starfield ── */
+
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.starfield-layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+
+.stars-sm {
+  background-image:
+    radial-gradient(1px 1px at 50px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 180px 150px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 320px 220px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 90px 300px, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1px 1px at 440px 60px, rgba(255,255,255,0.45), transparent),
+    radial-gradient(1px 1px at 270px 380px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 520px 280px, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 150px 450px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 600px 130px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 380px 490px, rgba(255,255,255,0.5), transparent);
+  background-size: 650px 550px;
+}
+
+.stars-md {
+  background-image:
+    radial-gradient(1.5px 1.5px at 120px 200px, rgba(196,132,252,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 400px 100px, rgba(6,182,212,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 250px 400px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1.5px 1.5px at 550px 320px, rgba(236,72,153,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 80px 480px, rgba(139,92,246,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 480px 50px, rgba(255,255,255,0.55), transparent),
+    radial-gradient(1.5px 1.5px at 350px 250px, rgba(6,182,212,0.4), transparent);
+  background-size: 700px 600px;
+}
+
+.stars-lg {
+  background-image:
+    radial-gradient(2px 2px at 200px 150px, rgba(196,132,252,0.8), transparent),
+    radial-gradient(2.5px 2.5px at 500px 350px, rgba(6,182,212,0.7), transparent),
+    radial-gradient(2px 2px at 100px 400px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 650px 200px, rgba(236,72,153,0.5), transparent),
+    radial-gradient(3px 3px at 350px 50px, rgba(245,158,11,0.6), transparent);
+  background-size: 800px 500px;
+}
+
+@keyframes twinkle-1 {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes twinkle-2 {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+@keyframes twinkle-3 {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
+.stars-sm { animation: twinkle-1 8s ease-in-out infinite; }
+.stars-md { animation: twinkle-2 12s ease-in-out infinite; }
+.stars-lg { animation: twinkle-3 6s ease-in-out infinite; }
+
+/* ── Cosmic dividers ── */
+
+.cosmic-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.3) 25%,
+    rgba(6, 182, 212, 0.25) 50%,
+    rgba(236, 72, 153, 0.2) 75%,
+    transparent 100%
   );
 }
 
@@ -147,14 +246,9 @@ a {
   100% { --angle: 360deg; }
 }
 
-@keyframes float-particle {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-  50% { transform: translateY(-12px) scale(1.2); opacity: 1; }
-}
-
 @keyframes badge-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.4), 0 0 20px rgba(239, 68, 68, 0.15); }
-  50% { box-shadow: 0 0 14px rgba(239, 68, 68, 0.6), 0 0 32px rgba(239, 68, 68, 0.25); }
+  0%, 100% { box-shadow: 0 0 8px rgba(236, 72, 153, 0.4), 0 0 20px rgba(236, 72, 153, 0.15); }
+  50% { box-shadow: 0 0 14px rgba(236, 72, 153, 0.6), 0 0 32px rgba(236, 72, 153, 0.25); }
 }
 
 @keyframes price-shimmer {
@@ -178,8 +272,9 @@ a {
   background: conic-gradient(
     from var(--angle),
     transparent 40%,
-    rgba(245, 158, 11, 0.5) 50%,
-    rgba(124, 58, 237, 0.4) 55%,
+    rgba(139, 92, 246, 0.5) 48%,
+    rgba(6, 182, 212, 0.4) 52%,
+    rgba(236, 72, 153, 0.3) 56%,
     transparent 65%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -218,9 +313,9 @@ a {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.06) 45%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0.06) 55%,
+    rgba(139, 92, 246, 0.06) 45%,
+    rgba(196, 132, 252, 0.12) 50%,
+    rgba(139, 92, 246, 0.06) 55%,
     transparent 100%
   );
   opacity: 0;
@@ -241,11 +336,11 @@ a {
 .price-shine {
   background: linear-gradient(
     90deg,
-    #f59e0b 0%,
-    #fde68a 40%,
-    #f59e0b 60%,
-    #fbbf24 80%,
-    #f59e0b 100%
+    #c084fc 0%,
+    #e9d5ff 40%,
+    #8b5cf6 60%,
+    #c084fc 80%,
+    #8b5cf6 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -268,7 +363,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid rgba(245, 158, 11, 0.6);
+  outline: 2px solid rgba(139, 92, 246, 0.6);
   outline-offset: 2px;
   border-radius: 4px;
 }

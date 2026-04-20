@@ -36,7 +36,7 @@ export default function HowItWorks() {
       </motion.div>
 
       <div className="relative flex flex-col gap-8">
-        <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-amber-400/20 via-purple-500/15 to-transparent sm:left-[23px]" />
+        <div className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-violet-400/25 via-cyan-500/15 to-transparent sm:left-[23px]" />
 
         {steps.map((step, index) => (
           <motion.div
@@ -50,8 +50,8 @@ export default function HowItWorks() {
             <div
               className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold text-brand-gradient sm:h-14 sm:w-14"
               style={{
-                border: "1px solid rgba(245, 158, 11, 0.15)",
-                background: "linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.7))"
+                border: "1px solid rgba(139, 92, 246, 0.15)",
+                background: "linear-gradient(160deg, rgba(10,1,24,0.9), rgba(3,0,20,0.7))"
               }}
             >
               {step.number}

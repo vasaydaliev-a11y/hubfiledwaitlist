@@ -32,8 +32,8 @@ const plans = [
       "Priority support",
       "Marketplace access",
     ],
-    accent: "rgba(245, 158, 11, 0.1)",
-    accentBorder: "rgba(245, 158, 11, 0.2)",
+    accent: "rgba(139, 92, 246, 0.1)",
+    accentBorder: "rgba(139, 92, 246, 0.2)",
     highlighted: true,
     badge: "Most Popular",
   },
@@ -92,7 +92,7 @@ export default function Pricing() {
             style={{
               border: `1px solid ${plan.accentBorder}`,
               background:
-                "linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.65))",
+                "linear-gradient(160deg, rgba(10,1,24,0.9), rgba(3,0,20,0.65))",
             }}
           >
             {plan.highlighted && (
@@ -100,13 +100,13 @@ export default function Pricing() {
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.08), transparent 60%)",
+                    "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08), transparent 60%)",
                 }}
               />
             )}
 
             {plan.badge && (
-              <div className="relative z-10 mb-4 inline-flex self-start rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-400">
+              <div className="relative z-10 mb-4 inline-flex self-start rounded-full bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-400">
                 {plan.badge}
               </div>
             )}
@@ -132,7 +132,7 @@ export default function Pricing() {
                       height="14"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke={plan.highlighted ? "#f59e0b" : "rgba(255,255,255,0.3)"}
+                      stroke={plan.highlighted ? "#8b5cf6" : "rgba(255,255,255,0.3)"}
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       aria-hidden="true"
@@ -153,11 +153,11 @@ export default function Pricing() {
                 }`}
                 style={{
                   background: plan.highlighted
-                    ? "linear-gradient(135deg, #f59e0b, #ea580c, #7C3AED)"
+                    ? "linear-gradient(135deg, #8b5cf6, #6d28d9, #06B6D4)"
                     : "rgba(255,255,255,0.04)",
                   border: `1px solid ${plan.highlighted ? "transparent" : "rgba(255,255,255,0.06)"}`,
                   boxShadow: plan.highlighted
-                    ? "0 4px 20px rgba(245,158,11,0.2)"
+                    ? "0 4px 20px rgba(139,92,246,0.25)"
                     : "none",
                 }}
               >

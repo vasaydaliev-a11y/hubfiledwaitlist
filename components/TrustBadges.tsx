@@ -72,9 +72,9 @@ export default function TrustBadges() {
             transition={{ duration: 0.3, delay: i * 0.06 }}
             className="flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/50 transition-colors hover:text-white/70"
             style={{
-              border: "1px solid rgba(255,255,255,0.05)",
+              border: "1px solid rgba(139,92,246,0.06)",
               background:
-                "linear-gradient(160deg, rgba(14,14,24,0.6), rgba(8,8,16,0.4))",
+                "linear-gradient(160deg, rgba(10,1,24,0.6), rgba(3,0,20,0.4))",
             }}
           >
             <span className="text-white/30">{badge.icon}</span>

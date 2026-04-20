@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import CursorGlow from "@/components/CursorGlow";
+import StarField from "@/components/StarField";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import DemoPreview from "@/components/DemoPreview";
@@ -22,6 +23,7 @@ export default async function Home() {
 
   return (
     <main className="noise-overlay vignette relative overflow-hidden bg-background text-white">
+      <StarField />
       <ScrollProgress />
       <CursorGlow />
       <Navbar />
@@ -41,16 +43,16 @@ export default async function Home() {
         <div
           className="relative overflow-hidden rounded-2xl p-8 text-center sm:p-12"
           style={{
-            border: "1px solid rgba(245, 158, 11, 0.1)",
+            border: "1px solid rgba(139, 92, 246, 0.12)",
             background:
-              "linear-gradient(160deg, rgba(14,14,24,0.92), rgba(8,8,16,0.7))",
+              "linear-gradient(160deg, rgba(10,1,24,0.92), rgba(3,0,20,0.7))",
           }}
         >
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.08), transparent 55%)",
+                "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08), transparent 55%)",
             }}
           />
 

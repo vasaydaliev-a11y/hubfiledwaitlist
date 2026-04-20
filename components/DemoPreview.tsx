@@ -18,7 +18,7 @@ const DEMO_LINES = [
 ];
 
 function TypingDemo() {
-  const [visibleLines, setVisibleLines] = useState(0);
+    const [visibleLines, setVisibleLines] = useState(0);
 
   useEffect(() => {
     if (visibleLines >= DEMO_LINES.length) return;
@@ -39,9 +39,9 @@ function TypingDemo() {
             transition={{ duration: 0.15 }}
             className={
               line.type === "comment"
-                ? "text-white/25"
+                ? "text-violet-300/30"
                 : line.type === "result"
-                  ? "text-emerald-400/60"
+                  ? "text-cyan-400/60"
                   : "text-white/60"
             }
           >
@@ -50,14 +50,14 @@ function TypingDemo() {
         );
       })}
       {visibleLines < DEMO_LINES.length && (
-        <span className="inline-block h-4 w-1.5 animate-pulse bg-amber-400/70" />
+        <span className="inline-block h-4 w-1.5 animate-pulse bg-violet-400/70" />
       )}
       {visibleLines >= DEMO_LINES.length && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-2 text-amber-400/50"
+          className="mt-2 text-violet-400/50"
         >
           ✓ Ready to ship
         </motion.div>
@@ -92,15 +92,15 @@ export default function DemoPreview() {
         transition={{ duration: 0.6 }}
         className="overflow-hidden rounded-2xl"
         style={{
-          border: "1px solid rgba(255,255,255,0.06)",
+          border: "1px solid rgba(139,92,246,0.08)",
           background:
-            "linear-gradient(160deg, rgba(14,14,24,0.95), rgba(8,8,16,0.8))",
+            "linear-gradient(160deg, rgba(10,1,24,0.95), rgba(3,0,20,0.8))",
           boxShadow:
-            "0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(245,158,11,0.04)",
+            "0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(139,92,246,0.04)",
         }}
       >
         {/* Browser chrome */}
-        <div className="flex items-center gap-2 border-b border-white/[0.04] px-4 py-3">
+        <div className="flex items-center gap-2 border-b border-violet-500/[0.06] px-4 py-3">
           <div className="flex gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
             <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
@@ -121,7 +121,7 @@ export default function DemoPreview() {
         </div>
 
         {/* Status bar */}
-        <div className="flex items-center justify-between border-t border-white/[0.04] px-4 py-2 text-[11px] text-white/20">
+        <div className="flex items-center justify-between border-t border-violet-500/[0.06] px-4 py-2 text-[11px] text-white/20">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/60" />

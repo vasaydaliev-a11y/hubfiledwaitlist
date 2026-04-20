@@ -80,9 +80,9 @@ export default function Comparison() {
           transition={{ duration: 0.5 }}
           className="rounded-2xl p-6"
           style={{
-            border: "1px solid rgba(239, 68, 68, 0.1)",
+            border: "1px solid rgba(239, 68, 68, 0.08)",
             background:
-              "linear-gradient(160deg, rgba(14,14,24,0.85), rgba(8,8,16,0.6))",
+              "linear-gradient(160deg, rgba(10,1,24,0.85), rgba(3,0,20,0.6))",
           }}
         >
           <p className="mb-5 text-sm font-semibold uppercase tracking-wider text-red-400/70">
@@ -115,19 +115,19 @@ export default function Comparison() {
           transition={{ duration: 0.5 }}
           className="relative rounded-2xl p-6"
           style={{
-            border: "1px solid rgba(245, 158, 11, 0.15)",
+            border: "1px solid rgba(139, 92, 246, 0.15)",
             background:
-              "linear-gradient(160deg, rgba(14,14,24,0.85), rgba(8,8,16,0.6))",
+              "linear-gradient(160deg, rgba(10,1,24,0.85), rgba(3,0,20,0.6))",
           }}
         >
           <div
             className="pointer-events-none absolute inset-0 rounded-2xl"
             style={{
               background:
-                "radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.06), transparent 60%)",
+                "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08), transparent 60%)",
             }}
           />
-          <p className="relative mb-5 text-sm font-semibold uppercase tracking-wider text-amber-400/80">
+          <p className="relative mb-5 text-sm font-semibold uppercase tracking-wider text-violet-400/80">
             With HUBFIELD
           </p>
           <ul className="relative flex flex-col gap-3.5">
@@ -140,7 +140,7 @@ export default function Comparison() {
                 transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
                 className="flex items-center gap-3"
               >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-amber-400">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-500/10 text-violet-400">
                   <CheckIcon />
                 </span>
                 <span className="text-base text-white/80">{item.text}</span>

@@ -9,8 +9,8 @@ const testimonials = [
     name: "Aziz Karimov",
     role: "CTO, DataPulse",
     avatar: "AK",
-    accent: "rgba(245, 158, 11, 0.12)",
-    accentBorder: "rgba(245, 158, 11, 0.15)",
+    accent: "rgba(139, 92, 246, 0.12)",
+    accentBorder: "rgba(139, 92, 246, 0.15)",
   },
   {
     quote:
@@ -62,7 +62,7 @@ export default function Testimonials() {
             style={{
               border: `1px solid ${t.accentBorder}`,
               background:
-                "linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.65))",
+                "linear-gradient(160deg, rgba(10,1,24,0.9), rgba(3,0,20,0.65))",
             }}
           >
             <div

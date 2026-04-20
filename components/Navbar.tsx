@@ -6,8 +6,8 @@ import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 100], [0.55, 0.92]);
-  const borderOpacity = useTransform(scrollY, [0, 100], [0.02, 0.06]);
+  const bgOpacity = useTransform(scrollY, [0, 100], [0.4, 0.9]);
+  const borderOpacity = useTransform(scrollY, [0, 100], [0.03, 0.08]);
 
   return (
     <motion.header
@@ -16,10 +16,10 @@ export default function Navbar() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="sticky top-0 z-50 backdrop-blur-2xl"
       style={{
-        backgroundColor: useTransform(bgOpacity, (v) => `rgba(5,5,8,${v})`),
+        backgroundColor: useTransform(bgOpacity, (v) => `rgba(3,0,20,${v})`),
         borderBottom: useTransform(
           borderOpacity,
-          (v) => `1px solid rgba(255,255,255,${v})`
+          (v) => `1px solid rgba(139,92,246,${v})`
         ),
       }}
     >
@@ -34,9 +34,9 @@ export default function Navbar() {
           whileTap={{ scale: 0.97 }}
           className="rounded-full px-5 py-2 text-base font-medium text-white/80 transition-colors hover:text-white"
           style={{
-            border: "1px solid rgba(245, 158, 11, 0.25)",
+            border: "1px solid rgba(139, 92, 246, 0.25)",
             background:
-              "linear-gradient(160deg, rgba(245, 158, 11, 0.08), rgba(124, 58, 237, 0.06))",
+              "linear-gradient(160deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.06))",
           }}
         >
           Request Access

@@ -22,9 +22,9 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   duration: 3 + Math.random() * 3,
   color:
     i % 3 === 0
-      ? "rgba(245,158,11,0.5)"
+      ? "rgba(139,92,246,0.5)"
       : i % 3 === 1
-        ? "rgba(124,58,237,0.45)"
+        ? "rgba(196,132,252,0.45)"
         : "rgba(6,182,212,0.4)",
 }));
 
@@ -150,8 +150,8 @@ function ProductCard({
         className="absolute inset-0 rounded-2xl"
         style={{
           background:
-            "linear-gradient(160deg, rgba(14,14,24,0.92), rgba(8,8,16,0.7))",
-          border: "1px solid rgba(255,255,255,0.06)",
+            "linear-gradient(160deg, rgba(10,1,24,0.92), rgba(3,0,20,0.7))",
+          border: "1px solid rgba(139,92,246,0.08)",
         }}
       />
 
@@ -162,7 +162,7 @@ function ProductCard({
           background: useTransform(
             [spotlightX, spotlightY],
             ([x, y]) =>
-              `radial-gradient(circle 280px at ${x}% ${y}%, rgba(245,158,11,0.12), rgba(124,58,237,0.06) 40%, transparent 70%)`
+              `radial-gradient(circle 280px at ${x}% ${y}%, rgba(139,92,246,0.12), rgba(6,182,212,0.06) 40%, transparent 70%)`
           ),
         }}
       />
@@ -190,7 +190,7 @@ function ProductCard({
             }
           />
           {/* Bottom fade */}
-          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#050508] via-[#050508]/30 to-transparent" />
+          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#030014] via-[#030014]/30 to-transparent" />
 
           {/* Discount badge */}
           {hasDiscount && (
@@ -342,7 +342,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         className="mx-auto mt-16 h-px w-full max-w-md"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(245,158,11,0.3) 30%, rgba(124,58,237,0.3) 70%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.3) 30%, rgba(6,182,212,0.25) 70%, transparent 100%)",
         }}
       />
     </section>

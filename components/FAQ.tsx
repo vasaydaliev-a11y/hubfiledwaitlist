@@ -62,9 +62,9 @@ export default function FAQ() {
               transition={{ duration: 0.35, delay: i * 0.05 }}
               className="group rounded-xl transition-colors"
               style={{
-                border: `1px solid ${isOpen ? "rgba(245, 158, 11, 0.15)" : "rgba(255,255,255,0.04)"}`,
+                border: `1px solid ${isOpen ? "rgba(139, 92, 246, 0.15)" : "rgba(139,92,246,0.04)"}`,
                 background:
-                  "linear-gradient(160deg, rgba(14,14,24,0.8), rgba(8,8,16,0.5))",
+                  "linear-gradient(160deg, rgba(10,1,24,0.8), rgba(3,0,20,0.5))",
               }}
             >
               <button
@@ -77,10 +77,10 @@ export default function FAQ() {
                 <motion.span
                   animate={{ rotate: isOpen ? 45 : 0 }}
                   transition={{ duration: 0.25 }}
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-amber-400/80"
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-violet-400/80"
                   style={{
-                    background: "rgba(245, 158, 11, 0.08)",
-                    border: "1px solid rgba(245, 158, 11, 0.12)",
+                    background: "rgba(139, 92, 246, 0.1)",
+                    border: "1px solid rgba(139, 92, 246, 0.15)",
                   }}
                 >
                   <svg

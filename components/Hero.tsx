@@ -56,8 +56,8 @@ export default function Hero() {
           className="neo-glass-subtle mb-7 inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-sm tracking-wide text-white/70"
         >
           <span className="relative inline-flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-300" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-300" />
           </span>
           Now accepting early access
         </motion.div>
