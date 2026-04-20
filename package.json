@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sitemap": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.8",
