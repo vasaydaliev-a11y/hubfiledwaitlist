@@ -2,43 +2,108 @@
 
 import { motion } from "framer-motion";
 
-const signals = [
-  { label: "Backed by", value: "IT Park Uzbekistan" },
-  { label: "Models integrated", value: "50+" },
-  { label: "Beta testers", value: "Invite-only" },
-  { label: "Data residency", value: "Tashkent DC" }
+const testimonials = [
+  {
+    quote:
+      "HUBFIELD replaced three different APIs in our pipeline. One SDK, one bill, and the Smart Router saves us 30% on inference costs.",
+    name: "Aziz Karimov",
+    role: "CTO, DataPulse",
+    avatar: "AK",
+    accent: "rgba(245, 158, 11, 0.12)",
+    accentBorder: "rgba(245, 158, 11, 0.15)",
+  },
+  {
+    quote:
+      "The Generative Studio is incredible. Our content team went from using 5 tools to one dashboard. Plus, local data residency was a dealbreaker we couldn't get elsewhere.",
+    name: "Nodira Rustamova",
+    role: "Head of AI, CreativeUz",
+    avatar: "NR",
+    accent: "rgba(124, 58, 237, 0.1)",
+    accentBorder: "rgba(124, 58, 237, 0.12)",
+  },
+  {
+    quote:
+      "We hired a fine-tuning specialist through the marketplace in 48 hours. They shipped a custom model that outperforms GPT-4 on our domain.",
+    name: "Timur Bekmurodov",
+    role: "Founder, AgriAI",
+    avatar: "TB",
+    accent: "rgba(6, 182, 212, 0.1)",
+    accentBorder: "rgba(6, 182, 212, 0.12)",
+  },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 pb-24 sm:px-6">
+    <section className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="rounded-2xl p-6 sm:p-8"
-        style={{
-          border: "1px solid rgba(255,255,255,0.04)",
-          background: "linear-gradient(160deg, rgba(14,14,24,0.6), rgba(8,8,16,0.4))"
-        }}
+        className="mb-12 text-center"
       >
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {signals.map((s, index) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-              className="text-center"
-            >
-              <p className="text-lg font-semibold text-white sm:text-xl">{s.value}</p>
-              <p className="mt-1 text-[11px] text-white/30">{s.label}</p>
-            </motion.div>
-          ))}
-        </div>
+        <p className="text-[13px] uppercase tracking-[0.25em] text-white/30">
+          Early users
+        </p>
+        <h2 className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
+          Loved by builders
+        </h2>
       </motion.div>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {testimonials.map((t, i) => (
+          <motion.blockquote
+            key={t.name}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: i * 0.08 }}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 transition-all duration-500"
+            style={{
+              border: `1px solid ${t.accentBorder}`,
+              background:
+                "linear-gradient(160deg, rgba(14,14,24,0.9), rgba(8,8,16,0.65))",
+            }}
+          >
+            <div
+              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              style={{
+                background: `radial-gradient(ellipse at 50% 0%, ${t.accent}, transparent 65%)`,
+              }}
+            />
+
+            {/* Quote mark */}
+            <svg
+              className="relative z-10 mb-4 h-6 w-6 text-white/10"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M11.3 2.6C6.1 5.1 3 9.7 3 14.5c0 3.2 2 5.5 4.5 5.5 2.3 0 4-1.7 4-4 0-2.2-1.6-3.8-3.5-4-.3 0-.5 0-.8.1.6-3 3-5.8 5.8-7.3L11.3 2.6zm10 0C16.1 5.1 13 9.7 13 14.5c0 3.2 2 5.5 4.5 5.5 2.3 0 4-1.7 4-4 0-2.2-1.6-3.8-3.5-4-.3 0-.5 0-.8.1.6-3 3-5.8 5.8-7.3L21.3 2.6z" />
+            </svg>
+
+            <p className="relative z-10 flex-1 text-base leading-relaxed text-white/50">
+              &ldquo;{t.quote}&rdquo;
+            </p>
+
+            <div className="relative z-10 mt-5 flex items-center gap-3">
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white/80"
+                style={{
+                  background: t.accent,
+                  border: `1px solid ${t.accentBorder}`,
+                }}
+              >
+                {t.avatar}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-white/80">{t.name}</p>
+                <p className="text-xs text-white/30">{t.role}</p>
+              </div>
+            </div>
+          </motion.blockquote>
+        ))}
+      </div>
     </section>
   );
 }

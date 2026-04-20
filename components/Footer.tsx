@@ -7,9 +7,7 @@ export default function Footer() {
         <Logo size={24} />
         <p className="text-white/35">&copy; 2026 HUBFIELD. Made in Uzbekistan</p>
         <div className="flex items-center gap-5 text-white/35">
-          <a href="#" className="transition hover:text-white/60">Privacy</a>
-          <a href="#" className="transition hover:text-white/60">Terms</a>
-          <a href="#" className="transition hover:text-white/60">Contact</a>
+          <a href="mailto:hello@hubfield.uz" className="transition hover:text-white/60">Contact</a>
         </div>
       </div>
     </footer>

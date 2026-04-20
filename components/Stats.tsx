@@ -13,7 +13,7 @@ export default function Stats() {
   return (
     <section className="mx-auto w-full max-w-4xl px-4 pb-12 pt-4 sm:px-6">
       <div
-        className="grid grid-cols-3 rounded-2xl"
+        className="grid grid-cols-1 rounded-2xl sm:grid-cols-3"
         style={{
           border: "1px solid rgba(255,255,255,0.04)",
           background: "linear-gradient(160deg, rgba(14,14,24,0.6), rgba(8,8,16,0.4))"
@@ -26,9 +26,9 @@ export default function Stats() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.08 }}
-            className="px-4 py-6 text-center"
+            className="px-4 py-5 text-center sm:py-6"
             style={{
-              borderRight: index < stats.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none"
+              borderBottom: index < stats.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
             }}
           >
             <p className="text-2xl font-semibold text-white sm:text-3xl">

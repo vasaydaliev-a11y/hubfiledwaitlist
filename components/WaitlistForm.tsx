@@ -111,18 +111,20 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
           <AnimatedCounter target={1200} duration={2} suffix="+" /> people on the waitlist
         </p>
 
-        {error ? <p className="mt-2 text-sm text-rose-400/80">{error}</p> : null}
+        <div aria-live="polite" aria-atomic="true">
+          {error ? <p className="mt-2 text-sm text-rose-400/80">{error}</p> : null}
 
-        {isSuccess ? (
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 18 }}
-            className="mt-3 text-sm text-emerald-400/80"
-          >
-            You&apos;re on the list. We&apos;ll notify you.
-          </motion.p>
-        ) : null}
+          {isSuccess ? (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18 }}
+              className="mt-3 text-sm text-emerald-400/80"
+            >
+              You&apos;re on the list. We&apos;ll notify you.
+            </motion.p>
+          ) : null}
+        </div>
       </div>
     </div>
   );
