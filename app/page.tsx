@@ -8,6 +8,7 @@ import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import WaitlistForm from "@/components/WaitlistForm";
 import Footer from "@/components/Footer";
+import ConsoleEasterEgg from "@/components/ConsoleEasterEgg";
 import { getFeaturedProducts } from "@/lib/shopify";
 
 const DemoPreview = dynamic(() => import("@/components/DemoPreview"));
@@ -41,6 +42,7 @@ export default async function Home() {
 
   return (
     <main className="noise-overlay vignette relative overflow-hidden bg-background text-white">
+      <ConsoleEasterEgg />
       <Preloader />
       <StarField />
       <ScrollProgress />
