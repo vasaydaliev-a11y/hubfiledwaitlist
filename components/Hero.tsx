@@ -28,7 +28,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={heroItems}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs text-white/85 backdrop-blur-xl sm:text-sm"
+          className="neo-glass-subtle mb-6 inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 text-xs text-white/90 sm:text-sm"
         >
           <span className="relative inline-flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-300 opacity-70" />
@@ -42,7 +42,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={heroItems}
-          className="max-w-4xl text-balance text-4xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl"
+          className="max-w-4xl text-balance text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
         >
           <span className="text-brand-gradient">The Future of AI,</span>
           <br />
@@ -54,9 +54,9 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={heroItems}
-          className="mt-6 max-w-3xl text-balance text-sm leading-relaxed text-white/75 sm:text-lg"
+          className="mt-6 max-w-3xl text-balance text-sm leading-relaxed text-white/70 sm:text-lg"
         >
-          Access 50+ AI models, hire AI specialists, and automate your workflow - all in one place.
+          Access 50+ AI models, hire AI specialists, and automate your workflow — all in one place.
           Powered by the world&apos;s most advanced generative AI.
         </motion.p>
 
