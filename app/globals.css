@@ -387,6 +387,17 @@ a {
   animation: gradient-shimmer 6s linear infinite;
 }
 
+/* ── Input autofill ── */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f0e6ff;
+  -webkit-box-shadow: 0 0 0px 1000px #0a0118 inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #c084fc;
+}
+
 /* ── Accessibility ── */
 
 @media (prefers-reduced-motion: reduce) {
@@ -401,4 +412,5 @@ a {
   outline: 2px solid rgba(139, 92, 246, 0.6);
   outline-offset: 2px;
   border-radius: 4px;
+  transition: outline-offset 0.15s ease;
 }

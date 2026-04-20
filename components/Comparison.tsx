@@ -35,7 +35,7 @@ function XIcon() {
   );
 }
 
-function CheckIcon() {
+function AnimatedCheck({ delay }: { delay: number }) {
   return (
     <svg
       width="16"
@@ -47,7 +47,13 @@ function CheckIcon() {
       strokeLinecap="round"
       aria-hidden="true"
     >
-      <path d="M20 6L9 17l-5-5" />
+      <motion.path
+        d="M20 6L9 17l-5-5"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay, ease: "easeOut" }}
+      />
     </svg>
   );
 }
@@ -174,7 +180,7 @@ export default function Comparison() {
                 className="group/item flex items-center gap-3 rounded-lg px-2 py-1 -mx-2 transition-colors hover:bg-violet-500/[0.04]"
               >
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 transition-all group-hover/item:bg-violet-500/20 group-hover/item:shadow-[0_0_12px_rgba(139,92,246,0.2)]">
-                  <CheckIcon />
+                  <AnimatedCheck delay={0.2 + i * 0.08} />
                 </span>
                 <span className="text-base text-white/80 transition-colors group-hover/item:text-white">{item.text}</span>
               </motion.li>

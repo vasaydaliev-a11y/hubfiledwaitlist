@@ -292,7 +292,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   if (products.length === 0) return null;
 
   return (
-    <section className="relative mx-auto w-full max-w-6xl px-4 pb-28 sm:px-6">
+    <section aria-labelledby="products-heading" className="relative mx-auto w-full max-w-6xl px-4 pb-28 sm:px-6">
       <FloatingParticles />
 
       {/* Section heading */}
@@ -312,7 +312,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         >
           Marketplace
         </motion.p>
-        <h2 className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
+        <h2 id="products-heading" className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
           Featured on the{" "}
           <span className="text-brand-gradient">platform</span>
         </h2>

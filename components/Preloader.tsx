@@ -5,15 +5,36 @@ import { useState, useEffect } from "react";
 
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    const timer = setTimeout(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setLoading(false);
-      document.body.style.overflow = "";
-    }, 2200);
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+
+    const progressInterval = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) return 100;
+        const remaining = 100 - p;
+        return Math.min(100, p + remaining * 0.08 + Math.random() * 3);
+      });
+    }, 50);
+
+    const timer = setTimeout(() => {
+      setProgress(100);
+      clearInterval(progressInterval);
+      setTimeout(() => {
+        setLoading(false);
+        document.body.style.overflow = "";
+      }, 200);
+    }, 2000);
+
     return () => {
       clearTimeout(timer);
+      clearInterval(progressInterval);
       document.body.style.overflow = "";
     };
   }, []);
@@ -129,22 +150,27 @@ export default function Preloader() {
             </motion.p>
 
             {/* Loading bar */}
-            <motion.div
-              className="h-px w-24 overflow-hidden rounded-full"
-              style={{ background: "rgba(139,92,246,0.1)" }}
-            >
-              <motion.div
-                className="h-full rounded-full"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #8b5cf6, #06b6d4, #8b5cf6)",
-                  backgroundSize: "200% 100%",
-                }}
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              />
-            </motion.div>
+            <div className="flex w-24 flex-col items-center gap-2">
+              <div
+                className="h-px w-full overflow-hidden rounded-full"
+                style={{ background: "rgba(139,92,246,0.1)" }}
+              >
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #8b5cf6, #06b6d4, #8b5cf6)",
+                    backgroundSize: "200% 100%",
+                  }}
+                  initial={{ width: "0%" }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              </div>
+              <span className="text-[10px] tabular-nums text-white/20">
+                {Math.round(progress)}%
+              </span>
+            </div>
           </motion.div>
         </motion.div>
       )}
