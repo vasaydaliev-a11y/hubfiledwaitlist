@@ -119,6 +119,10 @@ export default function Stats() {
             </motion.p>
             <p className="mt-2 text-sm text-white/30 transition-colors group-hover:text-white/45">
               {stat.label}
+              <span
+                className="mx-auto mt-1 block h-px w-0 rounded-full transition-all duration-500 group-hover:w-full"
+                style={{ background: stat.color }}
+              />
             </p>
 
             {/* Bottom accent line */}

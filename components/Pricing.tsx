@@ -13,7 +13,8 @@ const plans = [
   {
     name: "Free",
     description: "For side projects and exploration",
-    price: "$0",
+    monthly: "$0",
+    annual: "$0",
     period: "forever",
     features: [
       "10 models included",
@@ -30,7 +31,8 @@ const plans = [
   {
     name: "Pro",
     description: "For teams shipping AI products",
-    price: "$49",
+    monthly: "$49",
+    annual: "$39",
     period: "/mo",
     features: [
       "All 50+ models",
@@ -49,7 +51,8 @@ const plans = [
   {
     name: "Enterprise",
     description: "For organizations at scale",
-    price: "Custom",
+    monthly: "Custom",
+    annual: "Custom",
     period: "",
     features: [
       "Everything in Pro",
@@ -70,9 +73,11 @@ const plans = [
 function PricingCard({
   plan,
   index,
+  annual,
 }: {
   plan: (typeof plans)[number];
   index: number;
+  annual: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [hovering, setHovering] = useState(false);
@@ -189,9 +194,22 @@ function PricingCard({
         <p className="mt-1 text-sm text-white/40">{plan.description}</p>
 
         <div className="mt-5 flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-white">{plan.price}</span>
+          <motion.span
+            key={annual ? "a" : "m"}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className="text-4xl font-bold text-white"
+          >
+            {annual ? plan.annual : plan.monthly}
+          </motion.span>
           {plan.period && (
             <span className="text-base text-white/30">{plan.period}</span>
+          )}
+          {annual && plan.monthly !== plan.annual && plan.annual !== "Custom" && (
+            <span className="ml-2 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-400/80">
+              Save 20%
+            </span>
           )}
         </div>
 
@@ -254,7 +272,52 @@ function PricingCard({
   );
 }
 
+function BillingToggle({
+  annual,
+  onChange,
+}: {
+  annual: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <div className="mt-6 flex items-center justify-center gap-3">
+      <span
+        className={`text-sm transition-colors ${annual ? "text-white/30" : "text-white/70"}`}
+      >
+        Monthly
+      </span>
+      <button
+        onClick={() => onChange(!annual)}
+        aria-pressed={annual}
+        className="relative h-7 w-12 rounded-full transition-colors"
+        style={{
+          background: annual
+            ? "linear-gradient(135deg, #8b5cf6, #06b6d4)"
+            : "rgba(255,255,255,0.08)",
+          border: "1px solid rgba(139,92,246,0.15)",
+        }}
+      >
+        <motion.div
+          className="absolute top-0.5 h-5 w-5 rounded-full bg-white shadow"
+          animate={{ left: annual ? 24 : 3 }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        />
+      </button>
+      <span
+        className={`text-sm transition-colors ${annual ? "text-white/70" : "text-white/30"}`}
+      >
+        Annual
+      </span>
+      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-400/70">
+        -20%
+      </span>
+    </div>
+  );
+}
+
 export default function Pricing() {
+  const [annual, setAnnual] = useState(false);
+
   return (
     <section id="pricing" className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
       <motion.div
@@ -273,11 +336,12 @@ export default function Pricing() {
         <p className="mx-auto mt-3 max-w-md text-base text-white/40">
           Start free. Scale when you&apos;re ready.
         </p>
+        <BillingToggle annual={annual} onChange={setAnnual} />
       </motion.div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {plans.map((plan, i) => (
-          <PricingCard key={plan.name} plan={plan} index={i} />
+          <PricingCard key={plan.name} plan={plan} index={i} annual={annual} />
         ))}
       </div>
 

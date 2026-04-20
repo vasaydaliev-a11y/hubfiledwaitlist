@@ -69,6 +69,39 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "HUBFIELD",
+              applicationCategory: "DeveloperApplication",
+              operatingSystem: "Web",
+              description:
+                "50+ AI models, one API. Smart Router, Generative Studio, and AI Talent Marketplace.",
+              url: "https://hubfield.uz",
+              author: {
+                "@type": "Organization",
+                name: "HUBFIELD",
+                url: "https://hubfield.uz",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Tashkent",
+                  addressCountry: "UZ",
+                },
+              },
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
+                description: "Free tier available",
+              },
+            }),
+          }}
+        />
+      </head>
       <body className={`${inter.className} bg-background antialiased`}>
         <a href="#waitlist" className="skip-link">
           Skip to waitlist

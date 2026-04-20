@@ -1,33 +1,37 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function HeroOrb() {
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
+  const [reduced, setReduced] = useState(false);
 
   const springConfig = { damping: 30, stiffness: 80 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // Parallax offsets — each layer moves differently
-  const ring1X = useTransform(smoothX, [0, 1], [-30, 30]);
-  const ring1Y = useTransform(smoothY, [0, 1], [-25, 25]);
-  const nebula1X = useTransform(smoothX, [0, 1], [-50, 50]);
-  const nebula1Y = useTransform(smoothY, [0, 1], [-40, 40]);
-  const nebula2X = useTransform(smoothX, [0, 1], [30, -30]);
-  const nebula2Y = useTransform(smoothY, [0, 1], [20, -20]);
-  const coreX = useTransform(smoothX, [0, 1], [-15, 15]);
-  const coreY = useTransform(smoothY, [0, 1], [-12, 12]);
-  const ray1X = useTransform(smoothX, [0, 1], [-20, 20]);
-  const ray2X = useTransform(smoothX, [0, 1], [15, -15]);
+  const range = reduced ? [0, 0] as const : undefined;
+  const ring1X = useTransform(smoothX, [0, 1], range ?? [-30, 30]);
+  const ring1Y = useTransform(smoothY, [0, 1], range ?? [-25, 25]);
+  const nebula1X = useTransform(smoothX, [0, 1], range ?? [-50, 50]);
+  const nebula1Y = useTransform(smoothY, [0, 1], range ?? [-40, 40]);
+  const nebula2X = useTransform(smoothX, [0, 1], range ?? [30, -30]);
+  const nebula2Y = useTransform(smoothY, [0, 1], range ?? [20, -20]);
+  const coreX = useTransform(smoothX, [0, 1], range ?? [-15, 15]);
+  const coreY = useTransform(smoothY, [0, 1], range ?? [-12, 12]);
+  const ray1X = useTransform(smoothX, [0, 1], range ?? [-20, 20]);
+  const ray2X = useTransform(smoothX, [0, 1], range ?? [15, -15]);
 
-  // Tilt rotation
-  const rotateX = useTransform(smoothY, [0, 1], [8, -8]);
-  const rotateY = useTransform(smoothX, [0, 1], [-8, 8]);
+  const rotateX = useTransform(smoothY, [0, 1], range ?? [8, -8]);
+  const rotateY = useTransform(smoothX, [0, 1], range ?? [-8, 8]);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setReduced(true);
+      return;
+    }
     const handleMouse = (e: MouseEvent) => {
       mouseX.set(e.clientX / window.innerWidth);
       mouseY.set(e.clientY / window.innerHeight);

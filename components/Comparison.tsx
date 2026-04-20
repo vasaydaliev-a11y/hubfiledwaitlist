@@ -87,7 +87,7 @@ function SavingsBar() {
 
 export default function Comparison() {
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 pb-28 sm:px-6">
+    <section aria-labelledby="comparison-heading" className="mx-auto w-full max-w-4xl px-4 pb-28 sm:px-6">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export default function Comparison() {
         <p className="text-[13px] uppercase tracking-[0.25em] text-white/30">
           Why switch
         </p>
-        <h2 className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
+        <h2 id="comparison-heading" className="mt-3 text-3xl font-bold tracking-[-0.02em] text-white sm:text-4xl">
           Stop juggling.{" "}
           <span className="text-brand-gradient">Start building.</span>
         </h2>
