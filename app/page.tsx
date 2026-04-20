@@ -62,7 +62,7 @@ export default async function Home() {
       <Pricing />
       <FAQ />
 
-      <section className="mx-auto mb-28 w-full max-w-4xl px-4 sm:px-6">
+      <section aria-labelledby="cta-heading" className="mx-auto mb-28 w-full max-w-4xl px-4 sm:px-6">
         <div
           className="product-card relative overflow-hidden rounded-2xl p-8 text-center sm:p-12"
           style={{
@@ -93,8 +93,8 @@ export default async function Home() {
               Only 127 spots remaining
             </div>
 
-            <h2 className="text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
-              Get early access
+            <h2 id="cta-heading" className="text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
+              Get early access to HUBFIELD
             </h2>
             <p className="mx-auto mt-3 max-w-md text-base text-white/40">
               First 500 members get 3 months of Pro — free.
