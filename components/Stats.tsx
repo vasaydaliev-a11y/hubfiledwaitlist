@@ -10,6 +10,7 @@ const stats = [
     label: "AI models",
     color: "rgba(139,92,246,0.5)",
     glowColor: "#8b5cf6",
+    live: false,
   },
   {
     value: 1200,
@@ -17,6 +18,7 @@ const stats = [
     label: "On the waitlist",
     color: "rgba(6,182,212,0.5)",
     glowColor: "#06b6d4",
+    live: true,
   },
   {
     value: 99.9,
@@ -24,6 +26,7 @@ const stats = [
     label: "Uptime target",
     color: "rgba(236,72,153,0.5)",
     glowColor: "#ec4899",
+    live: false,
   },
 ];
 
@@ -49,7 +52,7 @@ function GlowDot({ color, delay }: { color: string; delay: number }) {
 
 export default function Stats() {
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 pb-12 pt-4 sm:px-6">
+    <section aria-label="Key statistics" className="mx-auto w-full max-w-4xl px-4 pb-12 pt-4 sm:px-6">
       <div
         className="relative grid grid-cols-1 rounded-2xl sm:grid-cols-3"
         style={{
@@ -117,7 +120,19 @@ export default function Stats() {
                 />
               )}
             </motion.p>
-            <p className="mt-2 text-sm text-white/30 transition-colors group-hover:text-white/45">
+            <p className="mt-2 flex items-center justify-center gap-1.5 text-sm text-white/30 transition-colors group-hover:text-white/45">
+              {stat.live && (
+                <span className="relative inline-flex h-1.5 w-1.5">
+                  <span
+                    className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-50"
+                    style={{ background: stat.glowColor }}
+                  />
+                  <span
+                    className="relative inline-flex h-1.5 w-1.5 rounded-full"
+                    style={{ background: stat.glowColor }}
+                  />
+                </span>
+              )}
               {stat.label}
               <span
                 className="mx-auto mt-1 block h-px w-0 rounded-full transition-all duration-500 group-hover:w-full"

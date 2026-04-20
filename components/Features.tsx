@@ -28,6 +28,7 @@ const features = [
     accentBorder: "rgba(139, 92, 246, 0.15)",
     spotlightColor: "rgba(139,92,246,0.12)",
     span: "sm:col-span-2",
+    badge: null,
   },
   {
     icon: StudioIcon,
@@ -38,6 +39,7 @@ const features = [
     accentBorder: "rgba(6, 182, 212, 0.12)",
     spotlightColor: "rgba(6,182,212,0.12)",
     span: "",
+    badge: "New" as const,
   },
   {
     icon: RouterIcon,
@@ -48,6 +50,7 @@ const features = [
     accentBorder: "rgba(236, 72, 153, 0.12)",
     spotlightColor: "rgba(236,72,153,0.1)",
     span: "",
+    badge: null,
   },
   {
     icon: MarketplaceIcon,
@@ -58,6 +61,7 @@ const features = [
     accentBorder: "rgba(196, 132, 252, 0.12)",
     spotlightColor: "rgba(196,132,252,0.1)",
     span: "sm:col-span-2",
+    badge: "Beta" as const,
   },
   {
     icon: ShieldIcon,
@@ -68,6 +72,7 @@ const features = [
     accentBorder: "rgba(59, 130, 246, 0.1)",
     spotlightColor: "rgba(59,130,246,0.1)",
     span: "",
+    badge: null,
   },
   {
     icon: GlobeIcon,
@@ -78,6 +83,7 @@ const features = [
     accentBorder: "rgba(6, 182, 212, 0.1)",
     spotlightColor: "rgba(6,182,212,0.08)",
     span: "sm:col-span-2 lg:col-span-1",
+    badge: null,
   },
 ];
 
@@ -177,19 +183,32 @@ function FeatureCard({
       />
 
       <div className="relative z-10 p-5">
-        <div
-          className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 group-hover:shadow-[0_0_20px] group-hover:shadow-current/20"
-          style={{
-            background: feature.accent,
-            border: `1px solid ${feature.accentBorder}`,
-          }}
-        >
-          <motion.div
-            whileHover={{ rotate: [0, -10, 10, 0] }}
-            transition={{ duration: 0.5 }}
+        <div className="mb-4 flex items-center justify-between">
+          <div
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 group-hover:shadow-[0_0_20px] group-hover:shadow-current/20"
+            style={{
+              background: feature.accent,
+              border: `1px solid ${feature.accentBorder}`,
+            }}
           >
-            <Icon className="h-[18px] w-[18px] text-white/80 transition-colors group-hover:text-white" />
-          </motion.div>
+            <motion.div
+              whileHover={{ rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.5 }}
+            >
+              <Icon className="h-[18px] w-[18px] text-white/80 transition-colors group-hover:text-white" />
+            </motion.div>
+          </div>
+          {feature.badge && (
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                feature.badge === "New"
+                  ? "bg-cyan-500/10 text-cyan-400/80"
+                  : "bg-violet-500/10 text-violet-400/80"
+              }`}
+            >
+              {feature.badge}
+            </span>
+          )}
         </div>
         <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
         <p className="mt-1.5 text-base leading-relaxed text-white/45 transition-colors group-hover:text-white/55">

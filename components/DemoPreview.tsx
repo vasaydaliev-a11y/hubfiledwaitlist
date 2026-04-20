@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useCallback } from "react";
 
 const DEMO_LINES = [
   { type: "comment", text: "// One API call — any model" },
@@ -130,6 +130,72 @@ const chips = [
   { label: "Function Calling", color: "rgba(245,158,11,0.12)" },
 ];
 
+const CODE_TEXT = `const response = await hubfield.chat({
+  model: "auto",
+  messages: [
+    { role: "user", content: prompt }
+  ],
+  budget: "low"
+});`;
+
+function CopyButton() {
+  const [copied, setCopied] = useState(false);
+  const copy = useCallback(() => {
+    void navigator.clipboard.writeText(CODE_TEXT).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
+
+  return (
+    <button
+      onClick={copy}
+      aria-label="Copy code"
+      className="flex items-center gap-1 rounded-md px-2 py-1 text-[11px] text-white/25 transition-colors hover:bg-white/[0.04] hover:text-white/50"
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        {copied ? (
+          <motion.svg
+            key="check"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            className="text-emerald-400/70"
+          >
+            <path d="M20 6L9 17l-5-5" />
+          </motion.svg>
+        ) : (
+          <motion.svg
+            key="copy"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+          </motion.svg>
+        )}
+      </AnimatePresence>
+      {copied ? "Copied" : "Copy"}
+    </button>
+  );
+}
+
 export default function DemoPreview() {
   return (
     <section aria-labelledby="demo-heading" className="mx-auto w-full max-w-4xl px-4 pb-28 sm:px-6">
@@ -164,19 +230,20 @@ export default function DemoPreview() {
         }}
       >
         {/* Browser chrome */}
-        <div className="flex items-center gap-2 border-b border-violet-500/[0.06] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-violet-500/[0.06] px-4 py-3">
           <div className="flex gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-red-400/20" />
             <span className="h-2.5 w-2.5 rounded-full bg-amber-400/20" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/20" />
           </div>
-          <div className="mx-auto flex items-center gap-2 rounded-md bg-white/[0.03] px-3 py-1 text-xs text-white/25">
+          <div className="flex items-center gap-2 rounded-md bg-white/[0.03] px-3 py-1 text-xs text-white/25">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0110 0v4" />
             </svg>
             api.hubfield.uz/v1/chat
           </div>
+          <CopyButton />
         </div>
 
         {/* Code area */}

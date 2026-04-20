@@ -105,6 +105,27 @@ export default async function Home() {
             <div className="mt-7 flex justify-center">
               <WaitlistForm compact />
             </div>
+
+            <div
+              className="mx-auto mt-6 flex max-w-sm items-center gap-3 rounded-xl px-4 py-3"
+              style={{
+                background: "rgba(139,92,246,0.04)",
+                border: "1px solid rgba(139,92,246,0.06)",
+              }}
+            >
+              <div
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white/80"
+                style={{ background: "rgba(139,92,246,0.15)" }}
+              >
+                AK
+              </div>
+              <p className="text-left text-xs leading-relaxed text-white/35">
+                &ldquo;HUBFIELD replaced three APIs in our pipeline. One SDK, one bill.&rdquo;
+                <span className="mt-0.5 block text-[10px] text-white/20">
+                  — Aziz K., CTO at DataPulse
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </section>

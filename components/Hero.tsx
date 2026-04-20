@@ -106,7 +106,40 @@ export default function Hero() {
           Workflow automation that actually works. Built in Tashkent, made for the world.
         </motion.p>
 
-        <motion.div custom={0.65} initial="hidden" animate="visible" variants={fade} className="relative mt-10 w-full">
+        <motion.div
+          custom={0.58}
+          initial="hidden"
+          animate="visible"
+          variants={fade}
+          className="mt-7 flex items-center justify-center gap-3"
+        >
+          <div className="flex -space-x-2">
+            {["AK", "NR", "TB", "DK", "SM"].map((initials, i) => (
+              <div
+                key={initials}
+                className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-white/80 ring-2 ring-[#030014]"
+                style={{
+                  background: [
+                    "rgba(139,92,246,0.25)",
+                    "rgba(6,182,212,0.25)",
+                    "rgba(236,72,153,0.25)",
+                    "rgba(245,158,11,0.25)",
+                    "rgba(52,211,153,0.25)",
+                  ][i],
+                }}
+              >
+                {initials}
+              </div>
+            ))}
+          </div>
+          <div className="text-left text-xs text-white/35">
+            <span className="font-medium text-white/55">1,200+</span> builders
+            <br />
+            already on the waitlist
+          </div>
+        </motion.div>
+
+        <motion.div custom={0.65} initial="hidden" animate="visible" variants={fade} className="relative mt-8 w-full">
           <div
             className="pointer-events-none absolute -inset-x-20 -inset-y-10"
             aria-hidden="true"
