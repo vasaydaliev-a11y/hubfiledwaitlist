@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Static sitemap.xml generator for HUBFIELD.
+ * Static sitemap.xml + robots.txt generator for HUBFIELD.
  *
  * Scans app/ and components/ directories for .ts/.tsx files,
- * uses their mtime as lastModified, and writes public/sitemap.xml.
+ * uses their mtime as lastModified, and writes:
+ *   - public/sitemap.xml
+ *   - public/robots.txt
  *
  * Usage:
  *   node scripts/generate-sitemap.mjs
@@ -19,21 +21,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
 const SITE_URL = "https://hubfield.uz";
-const OUTPUT = join(ROOT, "public", "sitemap.xml");
+const PUBLIC_DIR = join(ROOT, "public");
+const SITEMAP_OUT = join(PUBLIC_DIR, "sitemap.xml");
+const ROBOTS_OUT = join(PUBLIC_DIR, "robots.txt");
 
-// ── Section registry ────────────────────────────────────────────
-// Each entry maps to an anchor section on the SPA.
-// Add new sections here when the page grows.
+// ── Page registry ───────────────────────────────────────────────
+// Maps every indexable page/section to its URL path.
 
-const sections = [
-  { path: "",              freq: "weekly",  priority: 1.0, dirs: ["app"] },
-  { path: "#features",     freq: "monthly", priority: 0.9, dirs: ["components"] },
-  { path: "#pricing",      freq: "monthly", priority: 0.9, dirs: ["components"] },
-  { path: "#demo",         freq: "monthly", priority: 0.8, dirs: ["components"] },
-  { path: "#faq",          freq: "monthly", priority: 0.8, dirs: ["components"] },
-  { path: "#testimonials", freq: "monthly", priority: 0.7, dirs: ["components"] },
-  { path: "#howitworks",   freq: "monthly", priority: 0.7, dirs: ["components"] },
-  { path: "#comparison",   freq: "monthly", priority: 0.7, dirs: ["components"] },
+const pages = [
+  { path: "",              label: "Home",         freq: "weekly",  priority: 1.0, dirs: ["app"] },
+  { path: "#features",     label: "Features",     freq: "monthly", priority: 0.9, dirs: ["components"] },
+  { path: "#pricing",      label: "Pricing",      freq: "monthly", priority: 0.9, dirs: ["components"] },
+  { path: "#demo",         label: "Demo",         freq: "monthly", priority: 0.8, dirs: ["components"] },
+  { path: "#faq",          label: "FAQ",          freq: "monthly", priority: 0.8, dirs: ["components"] },
+  { path: "#testimonials", label: "Testimonials", freq: "monthly", priority: 0.7, dirs: ["components"] },
+  { path: "#howitworks",   label: "How It Works", freq: "monthly", priority: 0.7, dirs: ["components"] },
+  { path: "#comparison",   label: "Comparison",   freq: "monthly", priority: 0.7, dirs: ["components"] },
 ];
 
 // ── Helpers ─────────────────────────────────────────────────────
@@ -65,8 +68,6 @@ function escapeXml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// ── Build XML ───────────────────────────────────────────────────
-
 const mtimeCache = {};
 
 function getMtime(dirs) {
@@ -82,20 +83,20 @@ function getMtime(dirs) {
   return mtimeCache[key];
 }
 
-function buildUrlEntry(section) {
-  const loc = section.path
-    ? `${SITE_URL}/${section.path}`
-    : SITE_URL;
+// ── Sitemap XML ─────────────────────────────────────────────────
 
-  const lastmod = toW3CDate(getMtime(section.dirs));
+function buildUrlEntry(page) {
+  const loc = page.path ? `${SITE_URL}/${page.path}` : SITE_URL;
+  const lastmod = toW3CDate(getMtime(page.dirs));
 
-  let entry = `  <url>\n`;
+  let entry = `  <!-- ${page.label} -->\n`;
+  entry += `  <url>\n`;
   entry += `    <loc>${escapeXml(loc)}</loc>\n`;
   entry += `    <lastmod>${lastmod}</lastmod>\n`;
-  entry += `    <changefreq>${section.freq}</changefreq>\n`;
-  entry += `    <priority>${section.priority.toFixed(1)}</priority>\n`;
+  entry += `    <changefreq>${page.freq}</changefreq>\n`;
+  entry += `    <priority>${page.priority.toFixed(1)}</priority>\n`;
 
-  if (section.path === "") {
+  if (page.path === "") {
     entry += `    <image:image>\n`;
     entry += `      <image:loc>${SITE_URL}/og-image.png</image:loc>\n`;
     entry += `      <image:title>HUBFIELD — Unified AI API Platform</image:title>\n`;
@@ -107,7 +108,7 @@ function buildUrlEntry(section) {
 }
 
 function generateSitemap() {
-  const urls = sections.map(buildUrlEntry).join("\n");
+  const urls = pages.map(buildUrlEntry).join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
@@ -118,13 +119,53 @@ ${urls}
 </urlset>
 `;
 
-  mkdirSync(dirname(OUTPUT), { recursive: true });
-  writeFileSync(OUTPUT, xml, "utf-8");
+  writeFileSync(SITEMAP_OUT, xml, "utf-8");
 
-  const count = sections.length;
+  const count = pages.length;
   const size = Buffer.byteLength(xml, "utf-8");
-  console.log(`\x1b[32m✓\x1b[0m sitemap.xml generated → public/sitemap.xml`);
-  console.log(`  ${count} URLs · ${size} bytes · ${new Date().toLocaleTimeString()}`);
+  console.log(`\x1b[32m✓\x1b[0m sitemap.xml → public/sitemap.xml (${count} URLs, ${size} bytes)`);
 }
 
+// ── Robots.txt ──────────────────────────────────────────────────
+
+function generateRobots() {
+  const today = toW3CDate(new Date());
+
+  const robots = `# robots.txt for ${SITE_URL}
+# Generated: ${today}
+
+# Allow all standard crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+# Block AI training crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Sitemap
+Sitemap: ${SITE_URL}/sitemap.xml
+
+# Canonical host
+Host: ${SITE_URL}
+`;
+
+  writeFileSync(ROBOTS_OUT, robots, "utf-8");
+
+  const size = Buffer.byteLength(robots, "utf-8");
+  console.log(`\x1b[32m✓\x1b[0m robots.txt → public/robots.txt (${size} bytes)`);
+}
+
+// ── Run ─────────────────────────────────────────────────────────
+
+mkdirSync(PUBLIC_DIR, { recursive: true });
 generateSitemap();
+generateRobots();
+console.log(`  ${new Date().toLocaleTimeString()}`);
