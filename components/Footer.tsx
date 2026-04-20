@@ -52,7 +52,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:justify-between">
           {/* Logo + tagline */}
           <div className="flex flex-col items-center gap-2 sm:items-start">
-            <Logo size={28} />
+            <Logo size={32} />
             <p className="text-sm text-white/25">
               The future of AI, in one platform.
             </p>

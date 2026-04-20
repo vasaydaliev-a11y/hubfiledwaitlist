@@ -25,7 +25,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" aria-label="HUBFIELD home">
-          <Logo size={30} />
+          <Logo size={40} />
         </Link>
 
         <motion.a
