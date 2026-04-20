@@ -204,6 +204,7 @@ export default function Features() {
   return (
     <section
       id="features"
+      aria-labelledby="features-heading"
       className="mx-auto w-full max-w-6xl px-4 pb-28 sm:px-6"
     >
       <motion.div
@@ -216,7 +217,7 @@ export default function Features() {
         <p className="text-[13px] uppercase tracking-[0.25em] text-white/30">
           What you get
         </p>
-        <h2 className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
+        <h2 id="features-heading" className="mt-3 text-4xl font-bold tracking-[-0.02em] text-white sm:text-5xl">
           One platform. Zero compromises.
         </h2>
       </motion.div>

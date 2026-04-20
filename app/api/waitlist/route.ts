@@ -3,23 +3,45 @@ import { NextResponse } from "next/server";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function getEnvDiag() {
-  return {
-    NEXT_PUBLIC_SUPABASE_URL: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-    SUPABASE_URL: !!process.env.SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
-    SUPABASE_ANON_KEY: !!process.env.SUPABASE_ANON_KEY,
-    SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY
-  };
+const rateLimitMap = new Map<string, { count: number; reset: number }>();
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60_000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.reset) {
+    rateLimitMap.set(ip, { count: 1, reset: now + RATE_WINDOW_MS });
+    return false;
+  }
+
+  entry.count++;
+  return entry.count > RATE_LIMIT;
 }
 
 export async function POST(request: Request) {
   try {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        {
+          status: 429,
+          headers: { "Retry-After": "60" },
+        }
+      );
+    }
+
+    const url =
+      process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
     if (!url) {
       return NextResponse.json(
-        { error: "Missing SUPABASE_URL", env: getEnvDiag() },
+        { error: "Service temporarily unavailable." },
         { status: 500 }
       );
     }
@@ -31,13 +53,13 @@ export async function POST(request: Request) {
 
     if (!key) {
       return NextResponse.json(
-        { error: "Missing Supabase key", env: getEnvDiag() },
+        { error: "Service temporarily unavailable." },
         { status: 500 }
       );
     }
 
     const supabase = createClient(url, key, {
-      auth: { persistSession: false, autoRefreshToken: false }
+      auth: { persistSession: false, autoRefreshToken: false },
     });
 
     let email = "";
@@ -45,11 +67,17 @@ export async function POST(request: Request) {
       const body = (await request.json()) as { email?: string };
       email = body.email?.trim().toLowerCase() ?? "";
     } catch {
-      return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid request body." },
+        { status: 400 }
+      );
     }
 
     if (!emailPattern.test(email)) {
-      return NextResponse.json({ error: "Invalid email format." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid email format." },
+        { status: 400 }
+      );
     }
 
     const { error } = await supabase.from("waitlist").insert({ email });
@@ -62,17 +90,18 @@ export async function POST(request: Request) {
         );
       }
 
+      console.error("Supabase error:", error.message, error.code);
       return NextResponse.json(
-        { error: `DB: ${error.message} (${error.code})` },
+        { error: "Something went wrong. Please try again." },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
+    console.error("Waitlist API error:", err);
     return NextResponse.json(
-      { error: `Unexpected: ${message}` },
+      { error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

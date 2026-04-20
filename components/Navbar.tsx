@@ -40,8 +40,28 @@ export default function Navbar() {
   const bgOpacity = useTransform(scrollY, [0, 100], [0.4, 0.9]);
   const borderOpacity = useTransform(scrollY, [0, 100], [0.03, 0.08]);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   const close = useCallback(() => setMobileOpen(false), []);
+
+  useEffect(() => {
+    const ids = navLinks.map((l) => l.href.slice(1));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -77,15 +97,35 @@ export default function Navbar() {
 
         {/* Desktop nav links */}
         <div className="hidden items-center gap-1 sm:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="rounded-lg px-3 py-1.5 text-sm text-white/40 transition-colors hover:bg-white/[0.03] hover:text-white/70"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const active = activeSection === link.href.slice(1);
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`relative rounded-lg px-3 py-1.5 text-sm transition-colors hover:bg-white/[0.03] hover:text-white/70 ${
+                  active ? "text-white/80" : "text-white/40"
+                }`}
+              >
+                {link.label}
+                {active && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-1 left-1/2 h-px w-4 -translate-x-1/2 rounded-full"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, #8b5cf6, #06b6d4)",
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 350,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </a>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-3">

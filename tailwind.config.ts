@@ -43,7 +43,21 @@ const config: Config = {
         "brand-gradient": "linear-gradient(135deg, #8b5cf6 0%, #06B6D4 100%)",
         "nebula-gradient": "linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #06B6D4 100%)",
         "cosmic-gradient": "linear-gradient(135deg, #c084fc 0%, #8b5cf6 30%, #06B6D4 70%, #f59e0b 100%)",
-      }
+      },
+      animation: {
+        "float": "float 6s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4", boxShadow: "0 0 8px rgba(139,92,246,0.2)" },
+          "50%": { opacity: "1", boxShadow: "0 0 20px rgba(139,92,246,0.4)" },
+        },
+      },
     }
   },
   plugins: []
