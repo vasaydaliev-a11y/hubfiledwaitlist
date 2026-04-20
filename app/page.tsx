@@ -1,7 +1,11 @@
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import HowItWorks from "@/components/HowItWorks";
 import Navbar from "@/components/Navbar";
+import ScrollProgress from "@/components/ScrollProgress";
+import Stats from "@/components/Stats";
+import Testimonials from "@/components/Testimonials";
 import WaitlistForm from "@/components/WaitlistForm";
 import CursorGlow from "@/components/CursorGlow";
 import GradientBorder from "@/components/GradientBorder";
@@ -9,10 +13,14 @@ import GradientBorder from "@/components/GradientBorder";
 export default function Home() {
   return (
     <main className="noise-overlay vignette relative overflow-hidden bg-background text-white">
+      <ScrollProgress />
       <CursorGlow />
       <Navbar />
       <Hero />
+      <Stats />
       <Features />
+      <HowItWorks />
+      <Testimonials />
 
       <section className="mx-auto mb-24 w-full max-w-5xl px-4 sm:px-6">
         <GradientBorder borderRadius="1.5rem">

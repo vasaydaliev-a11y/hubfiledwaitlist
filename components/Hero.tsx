@@ -53,9 +53,49 @@ function TypewriterHeadline() {
   );
 }
 
+function Spotlight() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.3 }}
+        className="absolute left-1/2 top-0 -translate-x-1/2"
+        style={{
+          width: "min(700px, 90vw)",
+          height: "70vh",
+          background:
+            "conic-gradient(from 180deg at 50% 0%, transparent 40%, rgba(124,58,237,0.12) 47%, rgba(6,182,212,0.08) 50%, rgba(124,58,237,0.12) 53%, transparent 60%)",
+          maskImage: "linear-gradient(to bottom, white 10%, transparent 90%)",
+          WebkitMaskImage: "linear-gradient(to bottom, white 10%, transparent 90%)"
+        }}
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.5 }}
+        className="absolute left-1/2 top-0 h-32 w-px -translate-x-1/2 bg-gradient-to-b from-purple-400/50 to-transparent"
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 2, delay: 0.6 }}
+        className="absolute left-1/2 top-0 -translate-x-1/2"
+        style={{
+          width: 300,
+          height: 180,
+          background: "radial-gradient(ellipse, rgba(124,58,237,0.18), transparent 70%)",
+          filter: "blur(40px)"
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-4 pb-20 pt-16 sm:px-6">
+      <Spotlight />
       <ParticleBackground />
 
       <div className="section-glow relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
