@@ -6,45 +6,16 @@ import { createClient } from "@supabase/supabase-js";
 //   created_at timestamptz DEFAULT now()
 // );
 
-function firstDefined(...values: Array<string | undefined>) {
-  return values.find((value) => Boolean(value));
-}
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
 
-const supabaseUrl = firstDefined(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_URL
-);
-
-const supabaseAnonKey = firstDefined(
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
-  process.env.SUPABASE_ANON_KEY
-);
-
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.SUPABASE_ANON_KEY;
 
 export function getSupabaseClient() {
-  if (!supabaseUrl || !supabaseAnonKey) {
+  if (!supabaseUrl || !supabaseKey) {
     return null;
   }
 
-  return createClient(supabaseUrl, supabaseAnonKey);
-}
-
-export function getSupabaseServerClient() {
-  if (!supabaseUrl) {
-    return null;
-  }
-
-  const serverKey = supabaseServiceRoleKey ?? supabaseAnonKey;
-  if (!serverKey) {
-    return null;
-  }
-
-  return createClient(supabaseUrl, serverKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false
-    }
-  });
+  return createClient(supabaseUrl, supabaseKey);
 }
