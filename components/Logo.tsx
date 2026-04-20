@@ -18,18 +18,19 @@ export default function Logo({ className = "", showText = true, size = 32 }: Log
         viewBox="0 0 120 120"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
       >
         <defs>
           <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#fff8e6" stopOpacity="0.95" />
-            <stop offset="25%" stopColor="#fde68a" stopOpacity="0.7" />
-            <stop offset="55%" stopColor="#f59e0b" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+            <stop offset="0%" stopColor="#f0e6ff" stopOpacity="0.95" />
+            <stop offset="25%" stopColor="#c084fc" stopOpacity="0.7" />
+            <stop offset="55%" stopColor="#8b5cf6" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="core-inner" cx="50%" cy="50%" r="40%">
             <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-            <stop offset="40%" stopColor="#fff1d6" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
+            <stop offset="40%" stopColor="#e9d5ff" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="streak-purple" x1="0%" y1="100%" x2="50%" y2="50%">
             <stop offset="0%" stopColor="#7c3aed" stopOpacity="0" />
@@ -46,10 +47,10 @@ export default function Logo({ className = "", showText = true, size = 32 }: Log
             <stop offset="40%" stopColor="#d946ef" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#f0abfc" stopOpacity="0.85" />
           </linearGradient>
-          <linearGradient id="streak-amber" x1="100%" y1="0%" x2="50%" y2="50%">
-            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0" />
-            <stop offset="40%" stopColor="#f59e0b" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#fde68a" stopOpacity="0.9" />
+          <linearGradient id="streak-blue" x1="100%" y1="0%" x2="50%" y2="50%">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0" />
+            <stop offset="40%" stopColor="#3b82f6" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#93c5fd" stopOpacity="0.9" />
           </linearGradient>
           <filter id="glow-filter">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -119,17 +120,17 @@ export default function Logo({ className = "", showText = true, size = 32 }: Log
             opacity="0.5"
           />
 
-          {/* Top-right amber streak */}
+          {/* Top-right blue streak (was amber) */}
           <path
             d="M 102 18 C 92 38, 78 52, 63 59"
-            stroke="url(#streak-amber)"
+            stroke="url(#streak-blue)"
             strokeWidth="2.5"
             strokeLinecap="round"
             fill="none"
           />
           <path
             d="M 108 30 C 94 44, 80 54, 64 60"
-            stroke="url(#streak-amber)"
+            stroke="url(#streak-blue)"
             strokeWidth="1.5"
             strokeLinecap="round"
             fill="none"
