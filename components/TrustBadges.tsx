@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 const badges = [
   {
     label: "SOC 2 Compliant",
+    color: "rgba(139,92,246,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -14,6 +15,7 @@ const badges = [
   },
   {
     label: "GDPR Ready",
+    color: "rgba(6,182,212,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -23,6 +25,7 @@ const badges = [
   },
   {
     label: "256-bit SSL",
+    color: "rgba(52,211,153,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
@@ -32,6 +35,7 @@ const badges = [
   },
   {
     label: "IT Park Resident",
+    color: "rgba(236,72,153,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M3 21h18" />
@@ -43,6 +47,7 @@ const badges = [
   },
   {
     label: "Tashkent DC",
+    color: "rgba(245,158,11,0.35)",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="8" rx="2" />
@@ -70,14 +75,21 @@ export default function TrustBadges() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: i * 0.06 }}
-            className="flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/50 transition-colors hover:text-white/70"
+            whileHover={{
+              y: -3,
+              boxShadow: `0 8px 24px ${badge.color.replace("0.35", "0.12")}, 0 0 0 1px ${badge.color.replace("0.35", "0.15")}`,
+              transition: { duration: 0.25 },
+            }}
+            className="group flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/50 transition-colors hover:text-white/70"
             style={{
               border: "1px solid rgba(139,92,246,0.06)",
               background:
                 "linear-gradient(160deg, rgba(10,1,24,0.6), rgba(3,0,20,0.4))",
             }}
           >
-            <span className="text-white/30">{badge.icon}</span>
+            <span className="text-white/30 transition-colors duration-300 group-hover:text-white/60">
+              {badge.icon}
+            </span>
             <span>{badge.label}</span>
           </motion.div>
         ))}

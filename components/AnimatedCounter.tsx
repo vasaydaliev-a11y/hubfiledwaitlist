@@ -9,10 +9,14 @@ type AnimatedCounterProps = {
   suffix?: string;
 };
 
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 export default function AnimatedCounter({
   target,
   duration = 2,
-  suffix = "+"
+  suffix = "+",
 }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -23,23 +27,25 @@ export default function AnimatedCounter({
     if (!isInView || hasAnimated.current) return;
     hasAnimated.current = true;
 
-    const steps = 60;
-    const stepDuration = (duration * 1000) / steps;
-    let current = 0;
+    const ms = duration * 1000;
+    let start: number | null = null;
+    let raf: number;
 
-    const timer = setInterval(() => {
-      current++;
-      const progress = current / steps;
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
+    const tick = (now: number) => {
+      if (start === null) start = now;
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / ms, 1);
+      setCount(Math.round(easeOutCubic(progress) * target));
 
-      if (current >= steps) {
-        clearInterval(timer);
+      if (progress < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
         setCount(target);
       }
-    }, stepDuration);
+    };
 
-    return () => clearInterval(timer);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [isInView, target, duration]);
 
   return (

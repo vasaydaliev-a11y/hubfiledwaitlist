@@ -248,17 +248,38 @@ export default function WaitlistForm({ compact = false }: WaitlistFormProps) {
         </AnimatePresence>
 
         <div className="relative z-10 flex flex-col gap-3 sm:flex-row">
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") void submitWaitlist();
-            }}
-            placeholder="you@company.com"
-            aria-label="Email address"
-            className="neo-inset h-14 flex-1 rounded-xl px-4 text-base text-white outline-none transition placeholder:text-white/30 focus:border-violet-400/30 focus:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.4),0_0_16px_rgba(139,92,246,0.15)]"
-          />
+          <div className="group/input relative flex-1">
+            <input
+              type="email"
+              id="waitlist-email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") void submitWaitlist();
+              }}
+              placeholder=" "
+              aria-label="Email address"
+              className="neo-inset peer h-14 w-full rounded-xl px-4 pt-4 text-base text-white outline-none transition focus:border-violet-400/30 focus:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.4),0_0_16px_rgba(139,92,246,0.15)]"
+            />
+            <label
+              htmlFor="waitlist-email"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-white/30 transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-violet-400/60 peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-violet-400/40"
+            >
+              you@company.com
+            </label>
+            {/* Focus glow ring */}
+            <div
+              className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 peer-focus:opacity-100"
+              style={{
+                background: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(6,182,212,0.1))",
+                mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                maskComposite: "exclude",
+                WebkitMaskComposite: "xor",
+                padding: "1px",
+              }}
+            />
+          </div>
 
           <motion.button
             type="button"

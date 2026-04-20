@@ -7,8 +7,15 @@ export default function Preloader() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2200);
-    return () => clearTimeout(timer);
+    document.body.style.overflow = "hidden";
+    const timer = setTimeout(() => {
+      setLoading(false);
+      document.body.style.overflow = "";
+    }, 2200);
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = "";
+    };
   }, []);
 
   return (
