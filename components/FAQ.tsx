@@ -34,7 +34,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="mx-auto w-full max-w-3xl px-4 pb-28 sm:px-6">
+    <section id="faq" className="mx-auto w-full max-w-3xl px-4 pb-28 sm:px-6">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -60,16 +60,20 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="group rounded-xl transition-colors"
+              className="group rounded-xl transition-all duration-300"
               style={{
-                border: `1px solid ${isOpen ? "rgba(139, 92, 246, 0.15)" : "rgba(139,92,246,0.04)"}`,
-                background:
-                  "linear-gradient(160deg, rgba(10,1,24,0.8), rgba(3,0,20,0.5))",
+                border: `1px solid ${isOpen ? "rgba(139, 92, 246, 0.2)" : "rgba(139,92,246,0.04)"}`,
+                background: isOpen
+                  ? "linear-gradient(160deg, rgba(17,1,38,0.85), rgba(10,1,24,0.6))"
+                  : "linear-gradient(160deg, rgba(10,1,24,0.8), rgba(3,0,20,0.5))",
+                boxShadow: isOpen
+                  ? "0 4px 24px rgba(139,92,246,0.06), inset 0 1px 0 rgba(139,92,246,0.06)"
+                  : "none",
               }}
             >
               <button
                 onClick={() => setOpenIndex(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors"
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-white/[0.01]"
               >
                 <span className="text-base font-medium text-white/90">
                   {faq.q}

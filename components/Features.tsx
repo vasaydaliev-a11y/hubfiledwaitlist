@@ -68,7 +68,7 @@ const logos = [
 
 export default function Features() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-28 sm:px-6">
+    <section id="features" className="mx-auto w-full max-w-6xl px-4 pb-28 sm:px-6">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}

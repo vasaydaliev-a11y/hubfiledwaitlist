@@ -96,12 +96,12 @@ export default function Comparison() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
-                className="flex items-center gap-3"
+                className="group/item flex items-center gap-3 rounded-lg px-2 py-1 -mx-2 transition-colors hover:bg-white/[0.02]"
               >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-red-400/60">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-red-400/60 transition-colors group-hover/item:bg-red-500/15">
                   <XIcon />
                 </span>
-                <span className="text-base text-white/40">{item.text}</span>
+                <span className="text-base text-white/40 transition-colors group-hover/item:text-white/55">{item.text}</span>
               </motion.li>
             ))}
           </ul>
@@ -138,12 +138,12 @@ export default function Comparison() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
-                className="flex items-center gap-3"
+                className="group/item flex items-center gap-3 rounded-lg px-2 py-1 -mx-2 transition-colors hover:bg-violet-500/[0.04]"
               >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-500/10 text-violet-400">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 transition-all group-hover/item:bg-violet-500/20 group-hover/item:shadow-[0_0_12px_rgba(139,92,246,0.2)]">
                   <CheckIcon />
                 </span>
-                <span className="text-base text-white/80">{item.text}</span>
+                <span className="text-base text-white/80 transition-colors group-hover/item:text-white">{item.text}</span>
               </motion.li>
             ))}
           </ul>

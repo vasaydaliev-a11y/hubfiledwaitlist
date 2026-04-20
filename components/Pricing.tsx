@@ -1,6 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  type MotionStyle,
+} from "framer-motion";
+import { useRef, useCallback, useState } from "react";
 
 const plans = [
   {
@@ -18,6 +25,7 @@ const plans = [
     accentBorder: "rgba(255,255,255,0.06)",
     highlighted: false,
     badge: null,
+    spotlightColor: "rgba(255,255,255,0.06)",
   },
   {
     name: "Pro",
@@ -36,6 +44,7 @@ const plans = [
     accentBorder: "rgba(139, 92, 246, 0.2)",
     highlighted: true,
     badge: "Most Popular",
+    spotlightColor: "rgba(139,92,246,0.15)",
   },
   {
     name: "Enterprise",
@@ -54,12 +63,200 @@ const plans = [
     accentBorder: "rgba(124, 58, 237, 0.12)",
     highlighted: false,
     badge: null,
+    spotlightColor: "rgba(124,58,237,0.1)",
   },
 ];
 
+function PricingCard({
+  plan,
+  index,
+}: {
+  plan: (typeof plans)[number];
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [hovering, setHovering] = useState(false);
+
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+
+  const rotateX = useSpring(useTransform(my, [0, 1], [6, -6]), {
+    damping: 20,
+    stiffness: 200,
+  });
+  const rotateY = useSpring(useTransform(mx, [0, 1], [-6, 6]), {
+    damping: 20,
+    stiffness: 200,
+  });
+
+  const spotX = useTransform(mx, [0, 1], [0, 100]);
+  const spotY = useTransform(my, [0, 1], [0, 100]);
+
+  const onMove = useCallback(
+    (e: React.MouseEvent) => {
+      const r = ref.current?.getBoundingClientRect();
+      if (!r) return;
+      mx.set((e.clientX - r.left) / r.width);
+      my.set((e.clientY - r.top) / r.height);
+    },
+    [mx, my]
+  );
+
+  const tiltStyle: MotionStyle = {
+    rotateX,
+    rotateY,
+    transformPerspective: 800,
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.45, delay: index * 0.08 }}
+      style={tiltStyle}
+      onMouseMove={onMove}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => {
+        setHovering(false);
+        mx.set(0.5);
+        my.set(0.5);
+      }}
+      className={`group relative flex flex-col overflow-hidden rounded-2xl transition-shadow duration-500 ${
+        plan.highlighted ? "md:-mt-3 md:mb-[-12px]" : ""
+      }`}
+    >
+      {/* Base bg */}
+      <div
+        className="absolute inset-0 rounded-2xl"
+        style={{
+          border: `1px solid ${plan.accentBorder}`,
+          background:
+            "linear-gradient(160deg, rgba(10,1,24,0.9), rgba(3,0,20,0.65))",
+        }}
+      />
+
+      {/* Cursor spotlight */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-[1] rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background: useTransform(
+            [spotX, spotY],
+            ([x, y]) =>
+              `radial-gradient(circle 250px at ${x}% ${y}%, ${plan.spotlightColor}, transparent 70%)`
+          ),
+        }}
+      />
+
+      {/* Highlighted glow */}
+      {plan.highlighted && (
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08), transparent 60%)",
+          }}
+        />
+      )}
+
+      {/* Animated border on hover for highlighted */}
+      {plan.highlighted && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 rounded-2xl"
+          style={{
+            background: `conic-gradient(from ${hovering ? "90deg" : "0deg"} at 50% 50%, transparent 40%, rgba(139,92,246,0.4) 48%, rgba(6,182,212,0.3) 52%, transparent 60%)`,
+            mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMask:
+              "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            maskComposite: "exclude",
+            WebkitMaskComposite: "xor",
+            padding: 1,
+            opacity: hovering ? 1 : 0,
+            transition: "opacity 0.5s",
+          }}
+        />
+      )}
+
+      <div className="relative z-10 p-6">
+        {plan.badge && (
+          <div className="mb-4 inline-flex self-start rounded-full bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-400">
+            {plan.badge}
+          </div>
+        )}
+
+        <h3 className="text-lg font-semibold text-white">{plan.name}</h3>
+        <p className="mt-1 text-sm text-white/40">{plan.description}</p>
+
+        <div className="mt-5 flex items-baseline gap-1">
+          <span className="text-4xl font-bold text-white">{plan.price}</span>
+          {plan.period && (
+            <span className="text-base text-white/30">{plan.period}</span>
+          )}
+        </div>
+
+        <ul className="mt-6 flex flex-col gap-3">
+          {plan.features.map((f, fi) => (
+            <motion.li
+              key={f}
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: 0.15 + fi * 0.04 }}
+              className="flex items-center gap-2.5"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={
+                  plan.highlighted ? "#8b5cf6" : "rgba(255,255,255,0.3)"
+                }
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span className="text-sm text-white/50">{f}</span>
+            </motion.li>
+          ))}
+        </ul>
+
+        <a
+          href="#waitlist"
+          className={`mt-8 block rounded-xl py-3 text-center text-sm font-semibold transition-all ${
+            plan.highlighted
+              ? "text-white"
+              : "text-white/70 hover:text-white"
+          }`}
+          style={{
+            background: plan.highlighted
+              ? "linear-gradient(135deg, #8b5cf6, #6d28d9, #06B6D4)"
+              : "rgba(255,255,255,0.04)",
+            border: `1px solid ${plan.highlighted ? "transparent" : "rgba(255,255,255,0.06)"}`,
+            boxShadow: plan.highlighted
+              ? "0 4px 20px rgba(139,92,246,0.25)"
+              : "none",
+          }}
+        >
+          {plan.name === "Enterprise" ? "Contact Sales" : "Join Waitlist"}
+        </a>
+
+        <p className="mt-3 text-center text-xs text-white/25">
+          {plan.highlighted
+            ? "First 500 get 3 months free"
+            : "No credit card required"}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Pricing() {
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
+    <section id="pricing" className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -80,97 +277,7 @@ export default function Pricing() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {plans.map((plan, i) => (
-          <motion.div
-            key={plan.name}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: i * 0.08 }}
-            className={`group relative flex flex-col overflow-hidden rounded-2xl p-6 transition-all duration-500 ${
-              plan.highlighted ? "md:-mt-3 md:mb-[-12px]" : ""
-            }`}
-            style={{
-              border: `1px solid ${plan.accentBorder}`,
-              background:
-                "linear-gradient(160deg, rgba(10,1,24,0.9), rgba(3,0,20,0.65))",
-            }}
-          >
-            {plan.highlighted && (
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08), transparent 60%)",
-                }}
-              />
-            )}
-
-            {plan.badge && (
-              <div className="relative z-10 mb-4 inline-flex self-start rounded-full bg-violet-500/10 px-3 py-1 text-xs font-semibold text-violet-400">
-                {plan.badge}
-              </div>
-            )}
-
-            <div className="relative z-10">
-              <h3 className="text-lg font-semibold text-white">{plan.name}</h3>
-              <p className="mt-1 text-sm text-white/40">{plan.description}</p>
-
-              <div className="mt-5 flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-white">
-                  {plan.price}
-                </span>
-                {plan.period && (
-                  <span className="text-base text-white/30">{plan.period}</span>
-                )}
-              </div>
-
-              <ul className="mt-6 flex flex-col gap-3">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={plan.highlighted ? "#8b5cf6" : "rgba(255,255,255,0.3)"}
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                    <span className="text-sm text-white/50">{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href="#waitlist"
-                className={`mt-8 block rounded-xl py-3 text-center text-sm font-semibold transition-all ${
-                  plan.highlighted
-                    ? "text-white"
-                    : "text-white/70 hover:text-white"
-                }`}
-                style={{
-                  background: plan.highlighted
-                    ? "linear-gradient(135deg, #8b5cf6, #6d28d9, #06B6D4)"
-                    : "rgba(255,255,255,0.04)",
-                  border: `1px solid ${plan.highlighted ? "transparent" : "rgba(255,255,255,0.06)"}`,
-                  boxShadow: plan.highlighted
-                    ? "0 4px 20px rgba(139,92,246,0.25)"
-                    : "none",
-                }}
-              >
-                {plan.name === "Enterprise" ? "Contact Sales" : "Join Waitlist"}
-              </a>
-
-              <p className="mt-3 text-center text-xs text-white/25">
-                {plan.highlighted
-                  ? "First 500 get 3 months free"
-                  : "No credit card required"}
-              </p>
-            </div>
-          </motion.div>
+          <PricingCard key={plan.name} plan={plan} index={i} />
         ))}
       </div>
 

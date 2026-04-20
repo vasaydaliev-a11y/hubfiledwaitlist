@@ -58,6 +58,11 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: i * 0.08 }}
+            whileHover={{
+              y: -6,
+              boxShadow: `0 20px 50px rgba(0,0,0,0.4), 0 0 30px ${t.accent}`,
+              transition: { duration: 0.3 },
+            }}
             className="group relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 transition-all duration-500"
             style={{
               border: `1px solid ${t.accentBorder}`,
@@ -72,15 +77,17 @@ export default function Testimonials() {
               }}
             />
 
-            {/* Quote mark */}
-            <svg
-              className="relative z-10 mb-4 h-6 w-6 text-white/10"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M11.3 2.6C6.1 5.1 3 9.7 3 14.5c0 3.2 2 5.5 4.5 5.5 2.3 0 4-1.7 4-4 0-2.2-1.6-3.8-3.5-4-.3 0-.5 0-.8.1.6-3 3-5.8 5.8-7.3L11.3 2.6zm10 0C16.1 5.1 13 9.7 13 14.5c0 3.2 2 5.5 4.5 5.5 2.3 0 4-1.7 4-4 0-2.2-1.6-3.8-3.5-4-.3 0-.5 0-.8.1.6-3 3-5.8 5.8-7.3L21.3 2.6z" />
-            </svg>
+            {/* Quote mark with glow */}
+            <div className="relative z-10 mb-4">
+              <svg
+                className="h-6 w-6 text-white/10 transition-colors duration-300 group-hover:text-violet-400/20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M11.3 2.6C6.1 5.1 3 9.7 3 14.5c0 3.2 2 5.5 4.5 5.5 2.3 0 4-1.7 4-4 0-2.2-1.6-3.8-3.5-4-.3 0-.5 0-.8.1.6-3 3-5.8 5.8-7.3L11.3 2.6zm10 0C16.1 5.1 13 9.7 13 14.5c0 3.2 2 5.5 4.5 5.5 2.3 0 4-1.7 4-4 0-2.2-1.6-3.8-3.5-4-.3 0-.5 0-.8.1.6-3 3-5.8 5.8-7.3L21.3 2.6z" />
+              </svg>
+            </div>
 
             <p className="relative z-10 flex-1 text-base leading-relaxed text-white/50">
               &ldquo;{t.quote}&rdquo;

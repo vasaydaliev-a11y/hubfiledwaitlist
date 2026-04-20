@@ -18,14 +18,21 @@ const DEMO_LINES = [
 ];
 
 function TypingDemo() {
-    const [visibleLines, setVisibleLines] = useState(0);
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
-    if (visibleLines >= DEMO_LINES.length) return;
+    if (visibleLines >= DEMO_LINES.length) {
+      const restart = setTimeout(() => {
+        setVisibleLines(0);
+        setCycle((c) => c + 1);
+      }, 4000);
+      return () => clearTimeout(restart);
+    }
     const delay = DEMO_LINES[visibleLines]?.type === "empty" ? 400 : 120;
     const timer = setTimeout(() => setVisibleLines((v) => v + 1), delay);
     return () => clearTimeout(timer);
-  }, [visibleLines]);
+  }, [visibleLines, cycle]);
 
   return (
     <div className="font-mono text-[13px] leading-6">
@@ -33,7 +40,7 @@ function TypingDemo() {
         if (i >= visibleLines) return null;
         return (
           <motion.div
-            key={i}
+            key={`${cycle}-${i}`}
             initial={{ opacity: 0, x: -4 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.15 }}
@@ -54,12 +61,20 @@ function TypingDemo() {
       )}
       {visibleLines >= DEMO_LINES.length && (
         <motion.div
+          key={`done-${cycle}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-2 text-violet-400/50"
+          className="mt-2 flex items-center gap-2 text-violet-400/50"
         >
-          ✓ Ready to ship
+          <motion.span
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10, delay: 0.4 }}
+          >
+            ✓
+          </motion.span>
+          Ready to ship
         </motion.div>
       )}
     </div>

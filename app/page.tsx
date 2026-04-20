@@ -18,6 +18,20 @@ import MobileStickyCTA from "@/components/MobileStickyCTA";
 import Footer from "@/components/Footer";
 import { getFeaturedProducts } from "@/lib/shopify";
 
+function CosmicDivider() {
+  return (
+    <div className="mx-auto w-full max-w-xl px-4">
+      <div
+        className="h-px w-full"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.25) 20%, rgba(6,182,212,0.2) 50%, rgba(236,72,153,0.15) 80%, transparent 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
 export default async function Home() {
   const products = await getFeaturedProducts(6);
 
@@ -29,13 +43,17 @@ export default async function Home() {
       <Navbar />
       <Hero />
       <Stats />
+      <CosmicDivider />
       <DemoPreview />
       <Features />
       <TrustBadges />
+      <CosmicDivider />
       <Comparison />
       <HowItWorks />
+      <CosmicDivider />
       <Testimonials />
       <FeaturedProducts products={products} />
+      <CosmicDivider />
       <Pricing />
       <FAQ />
 
