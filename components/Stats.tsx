@@ -101,7 +101,10 @@ export default function Stats() {
 
             <motion.p
               className="relative text-3xl font-bold text-white sm:text-4xl"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{
+                scale: 1.05,
+                textShadow: `0 0 20px ${stat.color}`,
+              }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
               {stat.suffix === "%" ? (

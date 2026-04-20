@@ -52,6 +52,39 @@ function CheckIcon() {
   );
 }
 
+function SavingsBar() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+      className="mt-8 rounded-xl p-4"
+      style={{
+        border: "1px solid rgba(139,92,246,0.08)",
+        background: "linear-gradient(160deg, rgba(10,1,24,0.7), rgba(3,0,20,0.5))",
+      }}
+    >
+      <div className="mb-2 flex items-center justify-between text-xs">
+        <span className="text-white/30">Developer time saved</span>
+        <span className="font-medium text-violet-400/70">~72%</span>
+      </div>
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.04]">
+        <motion.div
+          className="h-full rounded-full"
+          style={{
+            background: "linear-gradient(90deg, #8b5cf6, #06b6d4)",
+          }}
+          initial={{ width: "0%" }}
+          whileInView={{ width: "72%" }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.6 }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Comparison() {
   return (
     <section className="mx-auto w-full max-w-4xl px-4 pb-28 sm:px-6">
@@ -149,6 +182,8 @@ export default function Comparison() {
           </ul>
         </motion.div>
       </div>
+
+      <SavingsBar />
     </section>
   );
 }
